@@ -15,6 +15,6 @@ Environment setup:
 	
 In order to reuse the code, Following things need to be done:
 
-FaceBook Developer account
-Twitter Account
-FaceBook page (For reporing purpose)
+	FaceBook Developer account
+	Twitter Account
+	FaceBook page (For reporing purpose)
