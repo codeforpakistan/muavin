@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+   <!-- <Button
+        android:text="Browse"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnBrowse" />
+-->
+<!--
+    <Button
+        android:text="Upload"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/btnUpload" />
+-->
+
+    <GridView
+        android:numColumns="auto_fit"
+        android:gravity="center"
+        android:columnWidth="150dp"
+        android:stretchMode="columnWidth"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/grid"
+        />
+
+</LinearLayout>

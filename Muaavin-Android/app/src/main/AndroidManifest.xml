@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cfp.muaavin.ui">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <provider
+        android:name="com.facebook.FacebookContentProvider"
+        android:authorities="com.facebook.app.FacebookContentProvider257203251414199"
+        android:exported="true" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationName"
+            android:value="Muaavin" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_activity_menu" />
+        <activity
+            android:name=".FacebookLoginActivity"
+            android:label="@string/title_activity_facebook_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                getBlockedUsers
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".WebServiceActivity"
+            android:label="@string/title_activity_web_service" />
+        <activity
+            android:name=".Post_ListView"
+            android:label="@string/title_activity_list_view" />
+        <activity
+            android:name=".Users_ListView"
+            android:label="@string/title_activity_users__list_view" />
+        <activity
+            android:name=".Browse_Activity"
+            android:label="@string/title_activity_browse_" />
+        <activity
+            android:name=".BrowsePost_ListView"
+            android:label="@string/title_activity_browse_post__list_view" />
+        <activity android:name=".TwitterLoginActivity" />
+
+        <!--
+            <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="59bd5ae7dca67f285eb3f6fc198b320463d75c30"
+            />
+        -->
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="1f03e106530c4c6ae7023157eab8cefef9c5b182" />
+
+        <activity android:name=".Tweet_ListView" />
+        <activity android:name=".GroupsListView" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".UploadImages"
+            android:label="@string/title_activity_upload_images">
+
+            <activity android:name="com.twitter.sdk.android.core.identity.OAuthActivity" />
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                getBlockedUsers
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".CaptionActivity"
+            android:label="@string/title_activity_caption"></activity>
+    </application>
+
+</manifest>

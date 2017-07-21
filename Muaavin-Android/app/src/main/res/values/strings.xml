@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Muaavin</string>
+    story.php
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">257203251414199</string>
+    <string name="fb_login_protocol_scheme">fb257203251414199</string>
+    <string name="title_activity_menu">Muaavin</string>
+    <string name="title_activity_facebook_login">Muaavin</string>
+    <string name="title_activity_web_service">Muaavin</string>
+    <string name="title_activity_list_view">Muaavin</string>
+    <string name="title_activity_users__list_view">Muaavin</string>
+    <string name="title_activity_highlights__list_view">Muaavin</string>
+    <string name="title_activity_browse_">Muaavin</string>
+    <string name="title_activity_browse_post__list_view">Muaavin</string>
+    <string name="title_activity_groups__list_view">Groups_ListView</string>
+    <string name="title_activity_upload_images">Muaavin</string>
+    <string name="title_activity_caption">Add Caption</string>
+
+</resources>
