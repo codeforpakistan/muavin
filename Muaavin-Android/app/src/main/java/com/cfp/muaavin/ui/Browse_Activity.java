@@ -74,7 +74,7 @@ public class Browse_Activity extends Fragment implements AsyncResponsePostsDet,B
         try {
 
 //          serverURL = "http://13.76.175.64:8080/Muaavin-Web/rest/Posts_Query/GetPosts?name="+ AesEncryption.encrypt(Group_name);
-            serverURL = "http://52.176.101.55:8080/Muaavin-Web/rest/Posts_Query/GetPosts?name="+ AesEncryption.encrypt(Group_name);
+            serverURL = MenuActivity.baseURL+"Muaavin-Web/rest/Posts_Query/GetPosts?name="+ AesEncryption.encrypt(Group_name);
         } catch (Exception e) { e.printStackTrace(); }
 
         if(isFb)

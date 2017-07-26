@@ -246,11 +246,12 @@ public class Post_ListView extends Fragment implements AsyncResponsePosts {
 
         showLoading(context);
         Bundle params = new Bundle();
-        if(caption.equals("")||caption==null)
-            params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following: \n Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+"https://web.facebook.com/"+post);
+        if(caption==null||caption.equals(""))
+            params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported a comment of "+userName+" ( https://web.facebook.com/"+user+" )"+" : "+message+"\n Visit post "+"https://web.facebook.com/"+post);
         else
-            params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following:\n"+
-                    caption+"\n" + "Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+"https://web.facebook.com/"+post);
+            params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported a comment of "+
+                    userName+" ( https://web.facebook.com/"+user+" ) "+" : "+message+"\nReporter's remarks : "+caption+" \n "+"Visit post "+"https://web.facebook.com/"+post);
+
         ByteArrayOutputStream blob = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, blob);
         byte[] bitmapdata = blob.toByteArray();
@@ -268,11 +269,18 @@ public class Post_ListView extends Fragment implements AsyncResponsePosts {
 
                         } else {
                             Bundle params = new Bundle();
+/*
                             if(caption.equals("")||caption==null)
                                 params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following: \n Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message);
                             else
                                 params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following:\n"+
                                         caption+"\n" + "Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message);
+*/
+                            if(caption==null||caption.equals(""))
+                                params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported a comment of "+userName+" ( https://web.facebook.com/"+user+" )"+" : "+message);
+                            else
+                                params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported a comment of "+
+                                        userName+" ( https://web.facebook.com/"+user+" ) "+" : "+message+"\nReporter's remarks : "+caption);
 
                             ByteArrayOutputStream blob = new ByteArrayOutputStream();
                             bitmap.compress(Bitmap.CompressFormat.PNG, 100, blob);

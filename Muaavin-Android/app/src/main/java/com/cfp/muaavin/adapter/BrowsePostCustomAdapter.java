@@ -17,6 +17,7 @@ import com.cfp.muaavin.facebook.Post;
 import com.cfp.muaavin.helper.AesEncryption;
 import com.cfp.muaavin.helper.UrlHelper;
 import com.cfp.muaavin.ui.BrowsePost_ListView;
+import com.cfp.muaavin.ui.MenuActivity;
 import com.cfp.muaavin.ui.R;
 import com.cfp.muaavin.web.ImageSelectorAsyncTask;
 import com.cfp.muaavin.web.WebHttpGetReq;
@@ -122,7 +123,7 @@ public class BrowsePostCustomAdapter extends BaseAdapter  {
                                 {
                                     if(Posts.get(position).IsTwitterPost) { user_id = String.valueOf(session.getUserId()); }
                                     //   serverURL = "http://13.76.175.64:8080/Muaavin-Web/rest/Posts_Query/DeletePosts?Post_id=" + AesEncryption.encrypt(Posts.get(position).id) + "&Group_name=" + AesEncryption.encrypt(GroupName) + "&User_id=" + AesEncryption.encrypt(user_id) +"&InfringingUserID="+AesEncryption.encrypt(Posts.get(position).PostOwner.id)+ "&isPostOfSpecificUser=" + true+"&IsTwitterPost="+Posts.get(position).IsTwitterPost+"&IsComment="+Posts.get(position).IsComment;
-                                    serverURL = "http://52.176.101.55:8080/Muaavin-Web/rest/Posts_Query/DeletePosts?Post_id=" + AesEncryption.encrypt(Posts.get(position).id) + "&Group_name=" + AesEncryption.encrypt(GroupName) + "&User_id=" + AesEncryption.encrypt(user_id) +"&InfringingUserID="+AesEncryption.encrypt(Posts.get(position).PostOwner.id)+ "&isPostOfSpecificUser=" + true+"&IsTwitterPost="+Posts.get(position).IsTwitterPost+"&IsComment="+Posts.get(position).IsComment;
+                                    serverURL = MenuActivity.baseURL+"Muaavin-Web/rest/Posts_Query/DeletePosts?Post_id=" + AesEncryption.encrypt(Posts.get(position).id) + "&Group_name=" + AesEncryption.encrypt(GroupName) + "&User_id=" + AesEncryption.encrypt(user_id) +"&InfringingUserID="+AesEncryption.encrypt(Posts.get(position).PostOwner.id)+ "&isPostOfSpecificUser=" + true+"&IsTwitterPost="+Posts.get(position).IsTwitterPost+"&IsComment="+Posts.get(position).IsComment;
                                 } catch (Exception e) { e.printStackTrace(); }
 
                                 new WebHttpGetReq(context, 11, holder.PostTextview, position,uiUpdate,null).execute(serverURL);

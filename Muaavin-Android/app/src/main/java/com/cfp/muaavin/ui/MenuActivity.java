@@ -91,11 +91,10 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
     DataLoaderHelper controller;
     BottomNavigationView bottomNavigationBar;
     int selectedItem;
+
+    public static String baseURL = "http://52.176.101.55:8080/";
     private static final String TWITTER_KEY = "hVtVIbgLdTeigUj4sDy7sFTH7";//"qWbMCnZUcB9hOliWDG6IOtkNP";
     private static final String TWITTER_SECRET = "h0SGrwxv3vBg3JkGWQX8PK9SUGLkGkZjrWTlJYz3vcfqXG5MNS";//"H4KIPod4y561OXJ7u8Cd4EuGCtIofAi0HhR2hW80Ng84JgQaQ3";
-
-    public static String pageTokenSamplePage = "EAADp7MxvhLcBAJZCMl0mpdnllmZBLn9OCkwUvN9ZAQmnokLP5wZAKDJz9pqtmY8ydq8CAnQc1OKa3FwmAZBMKLozmVj0ZAuFUgES4kAWCvGpD3mAPopPUwYyCN7SFJUJQZA8J9c4cMk3mRPZAZBqb32ZCT3GNpwZC05iBb6VuZCcuH1RVZCCMTU4ZAWcRGnczXXpcKnYCdNcxKsZATBEAZDZD";
-    public static String pageIdSamplePage = "1692987477676243";
 
     public static String pageToken = "EAADp7MxvhLcBACpQSicb7OIYSYdxt4ZB3Onhy785AnKeSF3G7XJAP47oQVQJQaTKWKLGsiDssrNIlGqpFpvGNzcytMY86RLGgAcQYr4pg8UwQOTOO2BHIZBvtsS0ExpEFbxZCHzFQharpnfouLVRxQTw40byV1w4kbYJez77AZDZD";
     public static String pageId = "123280518250126";
@@ -165,7 +164,7 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
         user_id = getIntent().getStringExtra("User_signedID");
         String serverURL = null;
 //      serverURL = "http://13.76.175.64:8080/Muaavin-Web/rest/Users/getBlockedUsers?";
-        serverURL = "http://52.176.101.55:8080/Muaavin-Web/rest/Users/getBlockedUsers?";
+        serverURL = MenuActivity.baseURL+"Muaavin-Web/rest/Users/getBlockedUsers?";
         new WebHttpGetReq(contex, MenuActivity.this, 9, null, this).execute(serverURL);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -336,7 +335,7 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setTitle("Muaavin");
 
-        builder.setMessage("Welcome to Muaavin!!! \n A platform offering users with the ease to report any inappropriate comments on posts or tweets.");
+        builder.setMessage("Welcome to Muaavin!!! \n Enabling victims and witnesses of online harassment to instantly report incidents to a trusted network of friends/allies.");
         builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {

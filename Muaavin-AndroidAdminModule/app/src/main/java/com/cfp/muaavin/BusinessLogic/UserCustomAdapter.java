@@ -89,6 +89,11 @@ public class UserCustomAdapter extends BaseAdapter {
         holder.image = (ImageView) rowView.findViewById(R.id.Image_view);
         holder.userProfile = (Button) rowView.findViewById(R.id.UserProfile);
 
+        if(option.equals("Block User"))
+            holder.BlockButton.setVisibility(View.VISIBLE);//.setTitle("Muaavin Users");
+        else if(option.equals("View Reported Users"))
+            holder.BlockButton.setVisibility(View.GONE);
+
         if(users.get(position).state.equals("UnBlocked")) { holder.BlockButton.setText("Block User"); }
         else { holder.BlockButton.setText("UnBlock"); }
 

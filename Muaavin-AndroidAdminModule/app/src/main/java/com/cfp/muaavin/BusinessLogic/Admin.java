@@ -18,7 +18,7 @@ public class Admin implements UserInterface{
     String  password;
     Context context;
     String  option;
-
+    public static String baseURL = "http://52.176.101.55:8080/";
 
     public Admin()
     {
@@ -31,7 +31,7 @@ public class Admin implements UserInterface{
     {
         option = "Block User";
         this.context = context;
-        String serverURL = "http://52.176.101.55:8080/Muaavin-Web/rest/Users/GetUsers?";
+        String serverURL = baseURL+"Muaavin-Web/rest/Users/GetUsers?";
         new WebHttpGetReq( option, context, this).execute(serverURL);
 
     }
@@ -39,7 +39,7 @@ public class Admin implements UserInterface{
     public void deletePost(Context context, String GroupName) throws Exception {
         option = "Delete Post";
         this.context = context;
-        String serverURL = "http://52.176.101.55:8080/Muaavin-Web/rest/UsersPosts/GetUsersPosts?name="+AesEncryption.encrypt(GroupName)+"&isSpecificUserPost="+false;
+        String serverURL = baseURL+"Muaavin-Web/rest/UsersPosts/GetUsersPosts?name="+AesEncryption.encrypt(GroupName)+"&isSpecificUserPost="+false;
         new WebHttpGetReq(option, context, this).execute(serverURL);
 
     }
@@ -48,7 +48,7 @@ public class Admin implements UserInterface{
     {
         option ="View Reported Users";
         this.context = context;
-        String serverURL = "http://52.176.101.55:8080/Muaavin-Web/rest/Users/Highlights?name=" + AesEncryption.encrypt("All")+"&specificUserFriends="+false;
+        String serverURL = baseURL+"Muaavin-Web/rest/Users/Highlights?name=" + AesEncryption.encrypt("All")+"&specificUserFriends="+false;
         new WebHttpGetReq(option, context , this).execute(serverURL);
 
     }
