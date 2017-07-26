@@ -83,6 +83,11 @@ public class WebServiceActivity extends Fragment implements UserInterface , Asyn
         getReportedFriends(InfringingUserIds, DataType); }
 
     @Override
+    public void postLink(String type, String postLink, String userProfile, String message, String userName) {
+
+    }
+
+    @Override
     public void getReportedFriends(ArrayList<String> InfringingUserIds, String dataType) {
 
         ArrayList<User> infringing_friends = new ArrayList<User>();

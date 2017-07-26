@@ -258,17 +258,10 @@ public class Browse_Activity extends Fragment implements AsyncResponsePostsDet,B
         else
         params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following:\n"+
                 caption+"\n" + "Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+post);
-
-        //Bitmap image = BitmapFactory.decodeFile(imageId.get(i).getPath());
         ByteArrayOutputStream blob = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, blob);
         byte[] bitmapdata = blob.toByteArray();
         params.putByteArray("picture", bitmapdata);
-//        params.putString("name", "Muaavin");
-//        params.putString("display", "page");
-        //params.putString("display", "page");
-//        params.putBoolean("published", false);
-        //showLoading(mContext);
         new GraphRequest(
                 new AccessToken(MenuActivity.pageToken, AccessToken.getCurrentAccessToken().getApplicationId(), AccessToken.getCurrentAccessToken().getUserId(), AccessToken.getCurrentAccessToken().getPermissions(), AccessToken.getCurrentAccessToken().getDeclinedPermissions(), AccessToken.getCurrentAccessToken().getSource(), AccessToken.getCurrentAccessToken().getExpires(), AccessToken.getCurrentAccessToken().getLastRefresh()),
                 "/"+ MenuActivity.pageId+"/photos",
@@ -282,12 +275,6 @@ public class Browse_Activity extends Fragment implements AsyncResponsePostsDet,B
 
                         } else {
                             Bundle params = new Bundle();
-/*
-                            if(caption.equals("")||caption==null)
-                                params.putString("caption", User.getLoggedInUserInformation().name + " has reported the following: \n Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message);
-                            else
-                                params.putString("caption", caption+"\n" + "Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message);
-*/
                             if(caption.equals("")||caption==null)
                                 params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following: \n Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message);
                             else
@@ -320,63 +307,6 @@ public class Browse_Activity extends Fragment implements AsyncResponsePostsDet,B
                     }
                 }
         ).executeAsync();
-       /* Bundle params = new Bundle();
-        params.putString("name", "Muaavin");
-        params.putString("place","1692987477676243");
-        params.putString("tags", User.getLoggedInUserInformation().id);
-        params.putString("message", User.getLoggedInUserInformation().name+" has reported the following post");
-        params.putString("link", post);
-        ByteArrayOutputStream blob = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, blob);
-        byte[] bitmapData = blob.toByteArray();
-       // params.putByteArray("picture", bitmapData);
-        params.putString("display", "page");
-        new GraphRequest(
-                *//*new AccessToken("EAADp7MxvhLcBACpQSicb7OIYSYdxt4ZB3Onhy785AnKeSF3G7XJAP47oQVQJQaTKWKLGsiDssrNIlGqpFpvGNzcytMY86RLGgAcQYr4pg8UwQOTOO2BHIZBvtsS0ExpEFbxZCHzFQharpnfouLVRxQTw40byV1w4kbYJez77AZDZD",AccessToken.getCurrentAccessToken().getApplicationId(),AccessToken.getCurrentAccessToken().getUserId(),AccessToken.getCurrentAccessToken().getPermissions(),AccessToken.getCurrentAccessToken().getDeclinedPermissions(),AccessToken.getCurrentAccessToken().getSource(),AccessToken.getCurrentAccessToken().getExpires(),AccessToken.getCurrentAccessToken().getLastRefresh()),
-                "/123280518250126/feed",*//*
-        new AccessToken("EAADp7MxvhLcBABIr0RIOadMUiRO2F1ZBW4ZBmX3KeVuQA6Dr7FmllYB3s0WMsshNr459QR51YPm5Fp2sZBKRKc7RSVkRWjU4lDm3RE8fJuhQ6ydyLpF6F2FPZCmfjnnZCFXV2SY4WhqZBBDcZA9xuYJ8HdgK6s52Ss2hwJpTQ0mTQzX1ki8ejpwAZClx7NaaHZCbknZCFtcBUouAZDZD",AccessToken.getCurrentAccessToken().getApplicationId(),AccessToken.getCurrentAccessToken().getUserId(),AccessToken.getCurrentAccessToken().getPermissions(),AccessToken.getCurrentAccessToken().getDeclinedPermissions(),AccessToken.getCurrentAccessToken().getSource(),AccessToken.getCurrentAccessToken().getExpires(), AccessToken.getCurrentAccessToken().getLastRefresh()),
-                "/1692987477676243/feed",
-                params,
-                HttpMethod.POST,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        if(response.getError()==null)
-                            Toast.makeText(context,"Post reported successfully",Toast.LENGTH_SHORT).show();
-                        else
-                        {
-                            Bundle params = new Bundle();
-                            params.putString("name", "Muaavin");
-                            params.putString("place","1692987477676243");
-                            params.putString("tags", User.getLoggedInUserInformation().id);
-                            params.putString("message", User.getLoggedInUserInformation().name+" has reported the following post");
-                            params.putString("link", user);
-                            ByteArrayOutputStream blob = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, blob);
-                            byte[] bitmapData = blob.toByteArray();
-                           // params.putByteArray("picture", bitmapData);
-                            params.putString("display", "page");
-                            new GraphRequest(
-                *//*new AccessToken("EAADp7MxvhLcBACpQSicb7OIYSYdxt4ZB3Onhy785AnKeSF3G7XJAP47oQVQJQaTKWKLGsiDssrNIlGqpFpvGNzcytMY86RLGgAcQYr4pg8UwQOTOO2BHIZBvtsS0ExpEFbxZCHzFQharpnfouLVRxQTw40byV1w4kbYJez77AZDZD",AccessToken.getCurrentAccessToken().getApplicationId(),AccessToken.getCurrentAccessToken().getUserId(),AccessToken.getCurrentAccessToken().getPermissions(),AccessToken.getCurrentAccessToken().getDeclinedPermissions(),AccessToken.getCurrentAccessToken().getSource(),AccessToken.getCurrentAccessToken().getExpires(),AccessToken.getCurrentAccessToken().getLastRefresh()),
-                "/123280518250126/feed",*//*
-                                    new AccessToken("EAADp7MxvhLcBABIr0RIOadMUiRO2F1ZBW4ZBmX3KeVuQA6Dr7FmllYB3s0WMsshNr459QR51YPm5Fp2sZBKRKc7RSVkRWjU4lDm3RE8fJuhQ6ydyLpF6F2FPZCmfjnnZCFXV2SY4WhqZBBDcZA9xuYJ8HdgK6s52Ss2hwJpTQ0mTQzX1ki8ejpwAZClx7NaaHZCbknZCFtcBUouAZDZD",AccessToken.getCurrentAccessToken().getApplicationId(),AccessToken.getCurrentAccessToken().getUserId(),AccessToken.getCurrentAccessToken().getPermissions(),AccessToken.getCurrentAccessToken().getDeclinedPermissions(),AccessToken.getCurrentAccessToken().getSource(),AccessToken.getCurrentAccessToken().getExpires(), AccessToken.getCurrentAccessToken().getLastRefresh()),
-                                    "/1692987477676243/feed",
-                                    params,
-                                    HttpMethod.POST,
-                                    new GraphRequest.Callback() {
-                                        public void onCompleted(GraphResponse response) {
-                                            if(response.getError()==null)
-                                                Toast.makeText(context,"Post reported successfully",Toast.LENGTH_SHORT).show();
-                                            else
-                                                Toast.makeText(context,"Unable to report post link, Please take screenshot from link provided on top of screen and report.",Toast.LENGTH_LONG).show();
-
-                                        }
-                                    }
-                            ).executeAsync();
-                        }
-
-                    }
-                }
-        ).executeAsync();*/
     }
 
     public void showLoading(Context context) {

@@ -34,10 +34,10 @@ public class ClipBoardHelper {
             ClipboardData = String.valueOf( item.getText());
 
             if(ClipboardData!=null)
-            {   String post_id = "" ;
+            {
+                String post_id = "" ;
                 if(ClipboardData.contains("m.facebook.com")){ IsFacebookPost = true;  post_id =  UrlHelper.getQueryFieldsFromURL( ClipboardData); }
                 else { String[] StringArr = ClipboardData.split("/"); post_id = StringArr[StringArr.length-1]; }
-
                 DialogBox.showQuestionDialog(context,activity,  user_id, post_id, ClipboardData,IsFacebookPost );
             }
         }

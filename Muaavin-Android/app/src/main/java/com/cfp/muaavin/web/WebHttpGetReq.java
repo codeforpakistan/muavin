@@ -164,8 +164,14 @@ public class WebHttpGetReq extends AsyncTask<String, Void, Void> {
        try
        {   if((Content!=null)&&(!Content.equals(""))) Content = AesEncryption.decrypt(Content);
 
-           if((check == 0 ) || (check == 5)){ DialogBox.showErrorDialog(context,"Message",Content); return; }
-
+           if(check == 0){
+               DialogBox.showDialog(context,"Report on Facebook",Content, FacebookUtil.ReportPostDetail.post_id,FacebookUtil.ReportPostDetail.infringing_user_id,FacebookUtil.ReportPostDetail.comment,FacebookUtil.ReportPostDetail.infringing_user_name);
+               return;
+           }
+           else if(check == 5){
+               DialogBox.showErrorDialog(context,"Message",Content);
+               return;
+           }
            else if((check == 1)||(check == 9) ||(check == 7)){
                getInfringingUsersDataFromDB(Content); } // check = 7 // Twitter data
 

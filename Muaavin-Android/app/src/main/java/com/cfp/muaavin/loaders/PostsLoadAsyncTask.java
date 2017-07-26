@@ -60,6 +60,7 @@ public class PostsLoadAsyncTask extends AsyncTask<ArrayList<Post> , Void, ArrayL
     protected void onPreExecute() {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading Data, Please wait...");
+        dialog.setCancelable(false);
         dialog.show();
         //super.onPreExecute();
     }
@@ -99,7 +100,7 @@ public class PostsLoadAsyncTask extends AsyncTask<ArrayList<Post> , Void, ArrayL
     {
         if(count == 0) {
             Bundle params = new Bundle();
-            params.putString("limit","20");
+            params.putString("limit","30");
             params.putString("fields", "from{id,name,picture},message,full_picture,story,created_time,picture,comments.summary(true){from{id,name,picture},id,message,comments{from{id,name,picture},id,message}}");//,comments.summary(true)
             new GraphRequest(AccessToken.getCurrentAccessToken(),
             "/"+Post_ID+"/feed",

@@ -241,10 +241,10 @@ public class CaptionActivity extends AppCompatActivity {
         params.putString("tags", User.getLoggedInUserInformation().id);
 
         if(caption==null||caption.equals(""))
-            params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following: \n Offender Details -> "+userName+" ( https://web.facebook.com/"+user_profile+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+post_url);
+            params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following: \n Offender Details -> "+userName+" ( https://web.facebook.com/"+user_profile+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+"https://web.facebook.com/"+post_url);
         else
         params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following:\n"+
-                caption+"\n" + "Offender Details -> "+userName+" ( https://web.facebook.com/"+user_profile+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+post_url);
+                caption+"\n" + "Offender Details -> "+userName+" ( https://web.facebook.com/"+user_profile+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+"https://web.facebook.com/"+post_url);
 
 
   /*      if(caption==null||caption.equals(""))

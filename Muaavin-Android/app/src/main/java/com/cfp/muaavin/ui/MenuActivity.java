@@ -130,18 +130,23 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
         bottomNavigationBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                ImageView img = (ImageView)findViewById(R.id.imgLogo);
+
                 switch (item.getItemId()) {
                     case R.id.Report:
+                        //img.setVisibility(View.GONE);
                         selectedItem = item.getItemId();
                         DialogBox.SelectReportOption(contex, "Select Option", ReportPostOption, 1, user_id, MenuActivity.this, MenuActivity.this, false, MenuActivity.this);
                         break;
 
                     case R.id.HighlightUsers:
+                        //img.setVisibility(View.GONE);
                         selectedItem = item.getItemId();
                         DialogBox.SelectReportOption(contex, "Select Option", HighlightUserOption, 1, user_id, MenuActivity.this, MenuActivity.this, false, MenuActivity.this);
                         break;
 
                     case R.id.Browse:
+                        //img.setVisibility(View.GONE);
                         selectedItem = item.getItemId();
                         DialogBox.SelectReportOption(contex, "Select Option", BrowseOption, 1, user_id, MenuActivity.this, MenuActivity.this, false, MenuActivity.this);
                         break;

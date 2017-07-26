@@ -160,6 +160,11 @@ public class DataLoaderHelper implements TweetsAsynchronousResponse, AsyncRespon
     }
 
     @Override
+    public void postLink(String type, String postLink, String userProfile, String message, String userName) {
+
+    }
+
+    @Override
     public void getGroups(ArrayList<Group> Groups)
     {
         GroupsListView frag = new GroupsListView();  Bundle args = new Bundle();

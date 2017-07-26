@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.EditText;
+
+import com.cfp.muaavin.adapter.Posts_CustomAdapter;
 import com.cfp.muaavin.facebook.User;
 import com.cfp.muaavin.facebook.clipboard;
 import com.cfp.muaavin.helper.DataLoaderHelper;
@@ -58,11 +60,37 @@ public class DialogBox {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
                     //
+
+
                 }
             });
             builder.show();
 
         }
+
+    public static void showDialog(final Context context, String heading, String Text, final String post, final String userId, final String message, final String name)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(heading);
+
+        builder.setMessage(Text);
+        builder.setPositiveButton("Report", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+                showReportDialog(context,post,userId,message,name);
+          //result.get(keys.get(position)).get(0).PostUrl,result.get(keys.get(position)).get(0).infringing_user_id,post_message1, result.get(keys.get(position)).get(0).infringing_user_name
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+        builder.show();
+
+    }
 
         public static  void showQuestionDialog(final Context context,final Activity activity, final String user_id, final  String post_id, final String link, final boolean IsFacebookPost)
         {
@@ -244,6 +272,28 @@ public class DialogBox {
             builder.show();
         }
 
+    public static void showReportDialog(final Context context, final String link, final String userProfile, final String message, final String userName)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Share as");
+        final String[] category = new String[]{"Link Posting", "Photo Posting"};
+        builder.setItems(category, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+
+                if (User.user_authentication == false) {  return; }
+
+                if(category[which].equals("Link Posting")) {
+                    Posts_CustomAdapter.BrowseActivityDelegate.postLink("Link Posting",link,userProfile,message, userName);
+                }
+
+                if(category[which].equals("Photo Posting")) {
+                    Posts_CustomAdapter.BrowseActivityDelegate.postLink("Photo Posting",link,userProfile,message, userName);
+                }
+            }
+        });
+        builder.show();
+    }
 
 }

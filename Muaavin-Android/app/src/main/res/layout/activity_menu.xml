@@ -27,6 +27,12 @@
         android:layout_below="@+id/textView2"
         android:layout_above="@+id/bottom_navigation_view">
 
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="293dp"
+            app:srcCompat="@mipmap/muavin_logo"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:id="@+id/imgLogo" />
     </FrameLayout>
 
 

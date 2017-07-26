@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.cfp.muaavin.facebook.FacebookUtil;
 import com.cfp.muaavin.facebook.Post;
 import com.cfp.muaavin.helper.UrlHelper;
+import com.cfp.muaavin.ui.Browse_Activity;
 import com.cfp.muaavin.ui.Post_ListView;
 import com.cfp.muaavin.ui.R;
 import com.cfp.muaavin.web.DialogBox;
@@ -39,10 +40,11 @@ public class Posts_CustomAdapter extends BaseAdapter {
     boolean ClipBoardOption ;
     boolean IsReportedPost = false;
     boolean GroupPostOption ;
+    public static Post_ListView BrowseActivityDelegate;
 
 
 
-    public Posts_CustomAdapter(Activity PostList_viewActivity, ArrayList<Post> selective_posts, String user_signed_id , boolean ClipBoardOption, boolean groupPostOption) {
+    public Posts_CustomAdapter(Activity PostList_viewActivity, ArrayList<Post> selective_posts, String user_signed_id , boolean ClipBoardOption, boolean groupPostOption, Post_ListView delegate) {
 
         result = selective_posts;
         context = PostList_viewActivity;
@@ -50,6 +52,8 @@ public class Posts_CustomAdapter extends BaseAdapter {
         this.ClipBoardOption = ClipBoardOption;
         GroupPostOption = groupPostOption;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        BrowseActivityDelegate = delegate;
+
     }
 
     @Override
@@ -113,7 +117,8 @@ public class Posts_CustomAdapter extends BaseAdapter {
                 FacebookUtil.ReportPostDetail.setPostInformation(result.get(position).id,removeHash(removeHash(result.get(position).message,"#", " "),"'","''"), UrlHelper.getEncodedUrl(result.get(position).image),result.get(position).post_url);
                 FacebookUtil.ReportPostDetail.setCommentInformation(result.get(position).Comments.get(num).comment_id,removeHash(removeHash(result.get(position).Comments.get(num).message, "#", " "),"'","''"), result.get(position).Comments.get(num).parent_comment_id,"");
 
-                if((ClipBoardOption) ||(GroupPostOption)) getInfringingUserDetail(position,num,-1,IsReportedPost);
+                //if((ClipBoardOption) ||(GroupPostOption))
+                    getInfringingUserDetail(position,num,-1,IsReportedPost);
 
                 DialogBox.ShowDialogBOx3(context, "Select Group ", group, 0, user_signed_inID,null,null,false);
                 }
@@ -263,7 +268,6 @@ public class Posts_CustomAdapter extends BaseAdapter {
             FacebookUtil.ReportPostDetail.infringing_user_profile_pic = result.get(position).PostOwner.profile_pic;
             FacebookUtil.ReportPostDetail.infringing_user_profile_pic = UrlHelper.getEncodedUrl(FacebookUtil.ReportPostDetail.infringing_user_profile_pic);
             FacebookUtil.ReportPostDetail.user_state = "UnBlocked";
-
         }
 
         else if(replyIndex > -1)

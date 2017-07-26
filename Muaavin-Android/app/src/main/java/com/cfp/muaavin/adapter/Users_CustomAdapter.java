@@ -246,8 +246,19 @@ public class Users_CustomAdapter extends BaseAdapter {
                 if (check == 1)*/
                     selective_posts.add(User_Posts.get(i));
             }
+            else{
+                for(int j=0;j<User_Posts.get(i).Comments.size();j++)
+                {
+                    if(Friend_id.equals(User_Posts.get(i).Comments.get(j).user_id/*User_Posts.get(i).PostOwner.id*/))
+                    {
+                        selective_posts.add(User_Posts.get(i));
+                    }
+                }
+            }
+/*
             else
                 continue;
+*/
         }
         return selective_posts;
     }

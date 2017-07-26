@@ -28,6 +28,7 @@
             android:src="@drawable/com_facebook_button_send_icon"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:visibility="gone"
             android:id="@+id/report"/>
 
     </RelativeLayout>

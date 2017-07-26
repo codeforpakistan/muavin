@@ -60,6 +60,11 @@ public class Users_ListView extends Fragment implements AsyncResponsePosts{
         ((BaseAdapter) UserListView.getAdapter()).notifyDataSetChanged();
     }
 
+    @Override
+    public void postLink(String type, String postLink, String userProfile, String message, String userName) {
+
+    }
+
     public void LoadUsers(View view)
     {
         isClipboardData= false; FacebookUtil.isUserPresent = false; // is Any user found in currently retrievd posts
