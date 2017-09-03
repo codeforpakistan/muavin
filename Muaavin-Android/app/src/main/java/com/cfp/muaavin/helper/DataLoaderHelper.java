@@ -17,6 +17,7 @@ import com.cfp.muaavin.ui.BrowsePost_ListView;
 import com.cfp.muaavin.ui.Browse_Activity;
 import com.cfp.muaavin.ui.FacebookLoginActivity;
 import com.cfp.muaavin.ui.GroupsListView;
+import com.cfp.muaavin.ui.HighlightedFragment;
 import com.cfp.muaavin.ui.MenuActivity;
 import com.cfp.muaavin.ui.Post_ListView;
 import com.cfp.muaavin.ui.R;
@@ -28,6 +29,8 @@ import com.cfp.muaavin.facebook.User;
 import com.cfp.muaavin.web.WebHttpGetReq;
 import com.facebook.Profile;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import static com.cfp.muaavin.ui.FacebookLoginActivity.user;
 import static com.cfp.muaavin.ui.TwitterLoginActivity.session;
 
@@ -39,7 +42,7 @@ public class DataLoaderHelper implements TweetsAsynchronousResponse, AsyncRespon
 
     public Context context;
     ArrayList<Post> ClipBoard_Posts;
-    String[] group = new String[]{"Sexual harassment", "Incitement to violence","Trans rights","All of the above"};
+    String[] group = new String[]{"Sexual harassment", "Incitement to violence","Hate speech","All of the above"};
     TweetsAsynchronousResponse TwitterAsyncDelegate = this;
     UiUpdate ActivityInterface;
     Activity activity;
@@ -84,6 +87,8 @@ public class DataLoaderHelper implements TweetsAsynchronousResponse, AsyncRespon
             else if(check == 1) new WebHttpGetReq(context,null,check,null,this).execute(MenuActivity.baseURL+"Muaavin-Web/rest/Users/Highlights?name=" + AesEncryption.encrypt(Group_name)+"&user_id="+AesEncryption.encrypt(Profile.getCurrentProfile().getId())+"&specificUserFriends="+true);
            else if(check == 2) { Browse_Activity frag = new Browse_Activity(); Bundle args = new Bundle(); args.putString("Group_name", Group_name);args.putBoolean("isFb", true); frag.setArguments(args); FragmentManager fragmentManager = activity.getFragmentManager();  fragmentManager.beginTransaction().replace(R.id.fragment_container, frag).addToBackStack(null).commit(); }
             else if(check == 333) { Browse_Activity frag = new Browse_Activity(); Bundle args = new Bundle(); args.putString("Group_name", Group_name);args.putBoolean("isFb", false); frag.setArguments(args); FragmentManager fragmentManager = activity.getFragmentManager();  fragmentManager.beginTransaction().replace(R.id.fragment_container, frag).addToBackStack(null).commit(); }
+            else if(check == 1000) { HighlightedFragment frag = new HighlightedFragment(); Bundle args = new Bundle(); args.putString("Group_name", Group_name);args.putBoolean("isFb", true); frag.setArguments(args); FragmentManager fragmentManager = activity.getFragmentManager();  fragmentManager.beginTransaction().replace(R.id.fragment_container, frag).addToBackStack(null).commit(); }
+            else if(check == 1001) { HighlightedFragment frag = new HighlightedFragment(); Bundle args = new Bundle(); args.putString("Group_name", Group_name);args.putBoolean("isFb", false); frag.setArguments(args); FragmentManager fragmentManager = activity.getFragmentManager();  fragmentManager.beginTransaction().replace(R.id.fragment_container, frag).addToBackStack(null).commit(); }
             else if(check == 4){ BrowsePost_ListView frag = new BrowsePost_ListView(); Bundle args = new Bundle(); args.putString("Group_name", Group_name);  args.putString("user_id", Profile.getCurrentProfile().getId()); frag.setArguments(args); FragmentManager fragmentManager = activity.getFragmentManager();  fragmentManager.beginTransaction().replace(R.id.fragment_container, frag).addToBackStack(null).commit(); }
         }
         else if(dataType.equals("Twitter"))
@@ -161,7 +166,7 @@ public class DataLoaderHelper implements TweetsAsynchronousResponse, AsyncRespon
     }
 
     @Override
-    public void postLink(String type, String postLink, String userProfile, String message, String userName) {
+    public void postLink(String type, String postLink, String userProfile, String message, String userName, int check) {
 
     }
 
@@ -190,7 +195,7 @@ public class DataLoaderHelper implements TweetsAsynchronousResponse, AsyncRespon
     }
 
     @Override
-    public void getBlockedUsers(ArrayList<String> FacebookUserIds, ArrayList<String> TwitterUserIds) {
+    public void getBlockedUsers(ArrayList<String> FacebookUserIds, ArrayList<String> TwitterUserIds, HashMap<String, String> fbblockDates, HashMap<String,String> twblockDates) {
 
     }
 }

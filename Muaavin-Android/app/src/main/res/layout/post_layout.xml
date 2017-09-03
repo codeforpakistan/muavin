@@ -5,7 +5,7 @@
 
     <TextView android:text=" Post " android:layout_width="match_parent"
         android:layout_height="match_parent" android:id="@+id/Textbox2" android:textSize="20dp"
-        android:background="#3b5998" android:textColor="#ffffff"  />
+        android:background="@color/barColor" android:textColor="#ffffff"  />
 
     <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:id="@+id/Textbox1" android:textSize="15dp"
@@ -24,7 +24,7 @@
         android:layout_height="match_parent"
         android:id="@+id/CommentHeading"
         android:textSize="20dp"
-        android:background="#3b5998" android:textColor="#ffffff"
+        android:background="@color/barColor" android:textColor="#ffffff"
         android:layout_below="@+id/Image_view"/>
 
 

@@ -14,7 +14,7 @@
         android:text="Muaavin"
         android:textSize="25dp"
         android:visibility="gone"
-        android:background="#3b5998"
+        android:background="@color/barColor"
         android:textColor="#ffffff"
         android:id="@+id/textView2"
         />
@@ -41,8 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemBackground="@color/navyblue"
-        app:itemTextColor="@color/white"
-        app:itemIconTint="@color/white"
+        app:itemIconTint="@drawable/tab_selector"
+        app:itemTextColor="#FFF"
         app:menu="@menu/bottom_navigation_items"
         android:layout_alignParentBottom="true"
         />

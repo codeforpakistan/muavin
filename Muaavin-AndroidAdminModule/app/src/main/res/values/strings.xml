@@ -6,4 +6,5 @@
     <string name="title_activity_users_list_view">Muaavin Users</string>
     <string name="title_activity_menu">Muaavin Admin</string>
     <string name="title_activity_post_list_view">Reported Posts</string>
+    <string name="title_activity_highlighted_posts">HighlightedPostsActivity</string>
 </resources>

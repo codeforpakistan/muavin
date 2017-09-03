@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.widget.EditText;
 
+import com.cfp.muaavin.adapter.DialogCustomAdapter;
 import com.cfp.muaavin.adapter.Posts_CustomAdapter;
+import com.cfp.muaavin.adapter.Tweets_CustomAdapter;
 import com.cfp.muaavin.facebook.User;
 import com.cfp.muaavin.facebook.clipboard;
 import com.cfp.muaavin.helper.DataLoaderHelper;
@@ -18,17 +20,62 @@ import com.cfp.muaavin.ui.R;
 import com.cfp.muaavin.ui.TwitterLoginActivity;
 import com.cfp.muaavin.ui.UiUpdate;
 import com.twitter.sdk.android.core.models.Tweet;
+
+import java.util.ArrayList;
+
 import static com.cfp.muaavin.facebook.FacebookUtil.clearFacebookData;
 import static com.cfp.muaavin.twitter.TwitterUtil.clearTwitterData;
 import static com.cfp.muaavin.ui.TwitterLoginActivity.session;
 
 public class DialogBox {
 
-    static String[] group  =  {"A","B","C","All"};
-    static String[] categories  =  new String[]{"Sexual harassment", "Incitement to violence","Trans rights"};
+    public static String[] group  =  {"A","B","C","All"};
+    public static String[] categories  =  new String[]{"Sexual harassment", "Incitement to violence","Hate speech"};
     public static String CategoryName;
-
+    public static AlertDialog alertDialog;
     public static void ShowDialogBOx3(final Context context , String str , final String[] category, final int option , final String user_id ,final Activity activity, final UiUpdate uiUpdate, final boolean isTwitterData)
+    {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(context);
+        builderSingle.setTitle(str);
+
+        final ArrayList<String> categories = new ArrayList<String>();
+        for(int i=0;i<category.length;i++)
+        {
+            categories.add(category[i]);
+        }
+        DialogCustomAdapter arrayAdapter = new DialogCustomAdapter(context, categories, activity,uiUpdate,isTwitterData, option);
+        builderSingle.setAdapter(arrayAdapter,null);
+
+        builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog = builderSingle.create();
+        alertDialog.show();
+
+    }
+
+    public static void showDialogBox2(Context context, String title, String content )
+    {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(content)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
+    }
+
+
+
+
+    public static void ShowDialogBOx(final Context context , String str , final String[] category, final int option , final String user_id ,final Activity activity, final UiUpdate uiUpdate, final boolean isTwitterData)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(str);
@@ -47,6 +94,7 @@ public class DialogBox {
 
             }
         });
+
         builder.show();
     }
 
@@ -68,21 +116,21 @@ public class DialogBox {
 
         }
 
-    public static void showDialog(final Context context, String heading, String Text, final String post, final String userId, final String message, final String name)
+    public static void showDialog(final Context context, String heading, String Text, final String post, final String userId, final String message, final String name, final int check , final boolean isFb)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(heading);
 
         builder.setMessage(Text);
-        builder.setPositiveButton("Report", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Post on FB.", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
 
-                showReportDialog(context,post,userId,message,name);
+                showReportDialog(context,post,userId,message,name, check, isFb);
           //result.get(keys.get(position)).get(0).PostUrl,result.get(keys.get(position)).get(0).infringing_user_id,post_message1, result.get(keys.get(position)).get(0).infringing_user_name
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+        builder.setNegativeButton("Don't post FB.", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int id) {
 
@@ -97,7 +145,7 @@ public class DialogBox {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(" Link");
 
-            builder.setMessage("Here is a link , do you want to report it ?" + "\n" + link);
+            builder.setMessage("Here is a link , do you want to notify it ?" + "\n" + link);
             builder.setPositiveButton("Show", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
@@ -136,7 +184,7 @@ public class DialogBox {
             builder.setTitle(" Tweet");
 
             builder.setMessage(tweet.text);
-            builder.setPositiveButton("Report", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("Notify", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
 
@@ -212,16 +260,16 @@ public class DialogBox {
 
                     if (User.user_authentication == false) {  return; }
 
-                    if(category[which].equals("Report Posts")) {
+                    if(category[which].equals("Notify Posts")) {
                         FriendManagement friend_management = new FriendManagement();
                         friend_management.reportFriends(context, activity);
                     }
 
-                    if(category[which].equals("Report Clipboard Post")) {
+                    if(category[which].equals("Notify Clipboard Post")) {
                         cp.reportClipboardPost();
                     }
 
-                    else if(category[which].equals("Report Tweets")) {
+                    else if(category[which].equals("Notify Tweets")) {
 
                         if (session == null) {
                             TwitterLoginActivity twitterFragment = new TwitterLoginActivity();
@@ -233,7 +281,7 @@ public class DialogBox {
                         else {
                             clearTwitterData(); DataLoaderHelper dataHandler = new DataLoaderHelper(context, uiUpdate, activity); dataHandler.loadTwitterData("LoadTweets"); }
                     }
-                    else if(category[which].equals("Report Group Posts"))
+                    else if(category[which].equals("Notify Group Posts"))
                     {
                         promptInputDialog(context,activity);
                     }
@@ -242,6 +290,15 @@ public class DialogBox {
                        FriendManagement friend_management = new FriendManagement();
                        friend_management.Highlights(context,uiUpdate,activity);
                     }
+
+/*
+                    else if(category[which].equals("Highlighted Facebook Users"))
+                    {
+                        FriendManagement friend_management = new FriendManagement();
+                        friend_management.Highlights(context,uiUpdate,activity);
+                    }
+*/
+
 
                     else if(category[which].equals("Highlighted Twitter Users"))
                     {
@@ -254,16 +311,25 @@ public class DialogBox {
                         } else { clearTwitterData(); DataLoaderHelper dataHandler = new DataLoaderHelper(context, uiUpdate, activity); dataHandler.loadTwitterData( "LoadFollowers"); }
                     }
 
-                    else if(category[which].equals("Browse Reported Posts"))
+                    else if(category[which].equals("Browse Notified Posts"))
                     {
                         FriendManagement friend_management = new FriendManagement(); friend_management.Browse(context,activity);
                     }
-                    else if(category[which].equals("Browse Reported Tweets"))
+                    else if(category[which].equals("Browse Notified Tweets"))
                     {
                         FriendManagement friend_management = new FriendManagement(); friend_management.BrowseTweets(context,activity);
                     }
 
-                    else if(category[which].equals("Manage Reports"))
+                    else if(category[which].equals("Highlighted Facebook Posts"))
+                    {
+                        FriendManagement friend_management = new FriendManagement(); friend_management.HighLightedPosts(context,activity);
+                    }
+                    else if(category[which].equals("Highlighted Twitter Posts"))
+                    {
+                        FriendManagement friend_management = new FriendManagement(); friend_management.HighlightedTweets(context,activity);
+                    }
+
+                    else if(category[which].equals("Manage Notifications"))
                     {
                         FriendManagement friend_management = new FriendManagement(); friend_management.BrowsePost(context,user_id,activity);
                     }
@@ -272,10 +338,10 @@ public class DialogBox {
             builder.show();
         }
 
-    public static void showReportDialog(final Context context, final String link, final String userProfile, final String message, final String userName)
+    public static void showReportDialog(final Context context, final String link, final String userProfile, final String message, final String userName, final int check, final boolean isFb)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Share as");
+        builder.setTitle("Post as");
         final String[] category = new String[]{"Link Posting", "Photo Posting"};
         builder.setItems(category, new DialogInterface.OnClickListener() {
             @Override
@@ -283,14 +349,24 @@ public class DialogBox {
 
 
                 if (User.user_authentication == false) {  return; }
-
+            if(isFb){
                 if(category[which].equals("Link Posting")) {
-                    Posts_CustomAdapter.BrowseActivityDelegate.postLink("Link Posting",link,userProfile,message, userName);
+                    Posts_CustomAdapter.BrowseActivityDelegate.postLink("Link Posting",link,userProfile,message, userName, check);
                 }
 
                 if(category[which].equals("Photo Posting")) {
-                    Posts_CustomAdapter.BrowseActivityDelegate.postLink("Photo Posting",link,userProfile,message, userName);
+                    Posts_CustomAdapter.BrowseActivityDelegate.postLink("Photo Posting",link,userProfile,message, userName, check);
+                }}
+                else
+            {
+                if(category[which].equals("Link Posting")) {
+                    Tweets_CustomAdapter.BrowseActivityDelegate.postLink("Link Posting",link,userProfile,message, userName, check);
                 }
+
+                if(category[which].equals("Photo Posting")) {
+                    Tweets_CustomAdapter.BrowseActivityDelegate.postLink("Photo Posting",link,userProfile,message, userName, check);
+                }
+            }
             }
         });
         builder.show();

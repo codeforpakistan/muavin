@@ -15,6 +15,8 @@
     <string name="title_activity_browse_post__list_view">Muaavin</string>
     <string name="title_activity_groups__list_view">Groups_ListView</string>
     <string name="title_activity_upload_images">Muaavin</string>
-    <string name="title_activity_caption">Add Caption</string>
+    <string name="title_activity_caption">Add Description</string>
+    <string name="title_activity_qrcode">Muaavin</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
 
 </resources>

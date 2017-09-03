@@ -220,7 +220,7 @@ public class Browser_CustomAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Are you sure to report the post?")
+                builder.setMessage("Are you sure to notify the post?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -267,6 +267,9 @@ public class Browser_CustomAdapter extends BaseAdapter {
 
 
         holder.total_unlikes.setText(String.valueOf(result.get(keys.get(position)).get(0).unlike_value));
+        if((float)result.get(keys.get(position)).get(0).unlike_value > (float)(result.get(keys.get(position)).get(0).count/10))
+            holder.PostHeading.setTextColor(context.getResources().getColor(R.color.pink));
+
             holder.ThumbDownButton.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View v) {

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Textbox2"
-        android:background="#3b5998"
+        android:background="@color/barColor"
         android:textColor="#ffffff"
         android:textSize="20dp"
         android:layout_alignParentTop="true"

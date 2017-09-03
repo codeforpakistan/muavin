@@ -11,6 +11,7 @@ import com.cfp.muaavin.facebook.Post;
 import com.cfp.muaavin.twitter.TwitterUtil;
 import com.cfp.muaavin.ui.Post_ListView;
 import com.cfp.muaavin.ui.R;
+import com.cfp.muaavin.ui.Tweet_ListView;
 import com.cfp.muaavin.web.DialogBox;
 
 import org.w3c.dom.Text;
@@ -27,13 +28,15 @@ public class Tweets_CustomAdapter extends BaseAdapter {
     Context context;
     private static LayoutInflater inflater=null;
     //public String[] group = {"A","B","C"};
-    String[] group = new String[]{"Sexual harassment", "Incitement to violence","Trans rights"};
+    String[] group = new String[]{"Sexual harassment", "Incitement to violence","Hate speech"};
+    public static Tweet_ListView BrowseActivityDelegate;
 
-    public Tweets_CustomAdapter(Context context, ArrayList<Post> tweets) {
+    public Tweets_CustomAdapter(Context context, ArrayList<Post> tweets, Tweet_ListView delegate) {
 
         TwitterPost = tweets;
         this.context = context;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        BrowseActivityDelegate = delegate;
 
     }
 

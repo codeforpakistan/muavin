@@ -12,7 +12,7 @@
         android:textSize="70px"
         android:textColor="#ffffff"
         android:layout_margin="20px"
-        android:background="#3b5998"/>
+        android:background="@color/barColor"/>
 
     <ListView android:id="@+id/listView1"
         android:layout_height="fill_parent"

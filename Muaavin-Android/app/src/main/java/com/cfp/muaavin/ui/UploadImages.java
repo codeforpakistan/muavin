@@ -65,6 +65,7 @@ public class UploadImages extends AppCompatActivity {
     //ArrayList<String> f = null;
     String fileName="";
     String post_url,user_profile,message,userName;
+    int check=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,13 +79,14 @@ public class UploadImages extends AppCompatActivity {
             user_profile = bundle.getString("user_profile");
             message = bundle.getString("message");
             userName = bundle.getString("user_name");
+            check = bundle.getInt("check");
         }
         countSelected = 0;
         countSelected = 0;
         countUploaded = 0;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#3b5998"));
+        ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.appTheme)/*Color.parseColor("#3b5998")*/);
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         grid = (GridView) findViewById(R.id.grid);
 
@@ -158,7 +160,7 @@ public class UploadImages extends AppCompatActivity {
             if (imageId.get(i).isSelected) {
 
                 Bundle params = new Bundle();
-                params.putString("caption", User.getLoggedInUserInformation().name + " has reported this post");
+                params.putString("caption", User.getLoggedInUserInformation().name + " has notified this post");
                 Bitmap image = BitmapFactory.decodeFile(imageId.get(i).getPath());
                 ByteArrayOutputStream blob = new ByteArrayOutputStream();
                 image.compress(Bitmap.CompressFormat.PNG, 100, blob);
@@ -203,7 +205,7 @@ public class UploadImages extends AppCompatActivity {
     {
         Bundle params = new Bundle();
         params.putString("tags", User.getLoggedInUserInformation().id);
-        params.putString("message", User.getLoggedInUserInformation().name + " has reported the following post");
+        params.putString("message", User.getLoggedInUserInformation().name + " has notified the following post");
         try {
             int counter = 0;
             for (int i = 0; i < imageId.size(); i++) {
@@ -222,15 +224,15 @@ public class UploadImages extends AppCompatActivity {
                             public void onCompleted(GraphResponse response) {
                                 hideLoading();
                                 if (response.getError() == null)
-                                    Toast.makeText(getApplicationContext(), "Photos reported successfully", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Photos notified successfully", Toast.LENGTH_LONG).show();
                                 else
-                                    Toast.makeText(getApplicationContext(), "Unable to report photos, Please try again.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Unable to notify photos, Please try again.", Toast.LENGTH_LONG).show();
 
                             }
                         }
                 ).executeAsync();}else {
                 hideLoading();
-                Toast.makeText(getApplicationContext(), "No photos available to report, Please try again.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "No photos available to notify, Please try again.", Toast.LENGTH_LONG).show();
             }
         } catch (JSONException ex) {
         }}
@@ -312,8 +314,10 @@ public class UploadImages extends AppCompatActivity {
                 intent.putExtra("user_profile",user_profile);
                 intent.putExtra("message",message);
                 intent.putExtra("user_name",userName);
+                intent.putExtra("check",check);
                 //intent.putParcelableArrayListExtra("list",images);
                 startActivity(intent);
+                UploadImages.this.finish();
                 break;
             case R.id.menu_item_delete:
                 deleteImages();

@@ -11,6 +11,20 @@
         app:showAsAction="always"
         android:layout_height="wrap_content" />-->
 
+  <item
+      android:id="@+id/isAnonymous"
+      android:checkable="true"
+      android:icon="@drawable/single_person_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:title="Ananymous"/>
+
+  <item android:id="@+id/rating"
+      android:icon="@drawable/group"
+      android:title="Feedback and Rating"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" />
+
     <item android:id="@+id/menu_item_new_quote"
         android:icon="@drawable/group"
         android:title="Logout"

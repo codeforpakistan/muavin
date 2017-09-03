@@ -2,12 +2,20 @@ package com.cfp.muaavin.web;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.TextView;
+
+import com.cfp.muaavin.BusinessLogic.Highlighted_CustomAdapter;
 import com.cfp.muaavin.BusinessLogic.Post;
 import com.cfp.muaavin.BusinessLogic.User;
 import com.cfp.muaavin.BusinessLogic.UserInterface;
 import com.cfp.muaavin.helper.AesEncryption;
 import com.cfp.muaavin.helper.ImageHelper;
+import com.cfp.muaavin.helper.PostDetail;
+import com.cfp.muaavin.ui.HighlightedPostsActivity;
+import com.cfp.muaavin.ui.PostListView;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -25,6 +33,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -40,7 +49,10 @@ public class WebHttpGetReq extends AsyncTask<String, Void, Void> {
     String data ="";
     UserInterface UsersDelagate;
     String option;
-
+    int check=0;
+    int ItemPosition;
+    Highlighted_CustomAdapter.UiUpdate BrowseLayoutDelegate;
+    static HashMap<String, ArrayList<PostDetail>> dictionary;
     public   WebHttpGetReq(String Option, Context contex,  UserInterface users_delegate)
     {
         context  = contex;
@@ -54,6 +66,16 @@ public class WebHttpGetReq extends AsyncTask<String, Void, Void> {
         context  = contex;
         Dialog = new ProgressDialog(context);
     }
+    public   WebHttpGetReq(Context c, int check, int value, Highlighted_CustomAdapter.UiUpdate BrowseLayout)
+    {
+        context  = c;
+        this.check = check;
+        Dialog = new ProgressDialog(context);
+        ItemPosition = value;
+        option = "";
+        BrowseLayoutDelegate = BrowseLayout;
+    }
+
     @Override
     protected void onPreExecute()
     {
@@ -127,16 +149,17 @@ public class WebHttpGetReq extends AsyncTask<String, Void, Void> {
                 UsersDelagate.getAsyncResponseUsers(Users);
             }
 
-            if(option.equals("Delete Post"))
+            if(option.equals("highlightedPosts"))
             {
-                JSONArray jsonArray = new JSONArray(Content);
-                ArrayList<Post> Posts = new ArrayList<Post>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    Post post = getPostDataFromWeb(jsonArray.optJSONObject(i));
-                    Posts.add(post);
-                }
-                UsersDelagate.getAsyncResponsePosts(Posts);
+                getReportedPostDetailFromDB( Content, true);
             }
+
+            if(option.equals("highlightedTweets"))
+            {
+                getReportedPostDetailFromDB( Content, false);            }
+            if(check==10)
+                BrowseLayoutDelegate.updateFeedBack(ItemPosition,Content);
+
 
          }
          catch (JSONException e){ e.printStackTrace();}
@@ -173,5 +196,131 @@ public class WebHttpGetReq extends AsyncTask<String, Void, Void> {
         return post;
     }
 
+    // Get Reports From WebService
+    public void getReportedPostDetailFromDB(String Content, boolean isFb) throws JSONException {
 
+        JSONArray jsonArray = new JSONArray(Content);
+        ArrayList<PostDetail> JsonPostDetails = new ArrayList<PostDetail>();
+        HashMap<String, ArrayList<PostDetail>> dictionary = new HashMap<String, ArrayList<PostDetail>>();
+
+        for (int i = 0; i < jsonArray.length(); i++)
+        {
+            JSONObject jsonChildNode = jsonArray.optJSONObject(i);
+            PostDetail PostDetailObj = getReportedPostDetail(i,jsonChildNode);
+            if(isFb){
+                //if(PostDetailObj.User_ID.equals(User.getLoggedInUserInformation().id)) {
+                JsonPostDetails.add(PostDetailObj);
+
+                if (dictionary.containsKey(PostDetailObj.post_id)) {
+                    ArrayList<PostDetail> reportedPostDetail = (ArrayList<PostDetail>) dictionary.get(PostDetailObj.post_id);
+                    if (!PostDetailObj.FeedBackMessage.equals("")) {
+                        reportedPostDetail.get(0).FeedBacks.add(PostDetailObj.FeedBackMessage);
+                    }
+                    dictionary.put(PostDetailObj.post_id, reportedPostDetail);
+                } else {
+                    ArrayList<PostDetail> PostDetailslist = new ArrayList<PostDetail>();
+                    if (!PostDetailObj.FeedBackMessage.equals("")) {
+                        PostDetailObj.FeedBacks.add(PostDetailObj.FeedBackMessage);
+                    }
+                    PostDetailslist.add(PostDetailObj);
+                    if (isFb) {
+                        if (PostDetailObj.IsTwitterPost) {
+//                   if(!TwitterUtil.BlockedUserIds.contains(PostDetailObj.infringing_user_id)) dictionary.put(PostDetailObj.post_id,PostDetailslist);
+                        }
+                        if (PostDetailObj.IsComment) {
+                           // if (!FacebookUtil.BlockedUsersIds.contains(PostDetailObj.infringing_user_id))
+                                dictionary.put(PostDetailObj.post_id, PostDetailslist);
+                        }
+                    } else {
+                        if (PostDetailObj.IsTwitterPost) {
+                            //if(!TwitterUtil.BlockedUserIds.contains(PostDetailObj.infringing_user_id))
+                                dictionary.put(PostDetailObj.post_id, PostDetailslist);
+                        }
+                        if (PostDetailObj.IsComment) {
+                            //           if(!FacebookUtil.BlockedUsersIds.contains(PostDetailObj.infringing_user_id)) dictionary.put(PostDetailObj.post_id,PostDetailslist);
+                        }
+                    }
+                }
+        /*}else
+            continue;*/
+            }
+            else
+            {
+                String TwitterUserId="";
+                //if(session==null) { TwitterUserId = "";  } else { TwitterUserId = String.valueOf(session.getUserId()); }
+                //if(PostDetailObj.User_ID.equals(TwitterUserId)) {
+                JsonPostDetails.add(PostDetailObj);
+
+                if (dictionary.containsKey(PostDetailObj.post_id)) {
+                    ArrayList<PostDetail> reportedPostDetail = (ArrayList<PostDetail>) dictionary.get(PostDetailObj.post_id);
+                    if (!PostDetailObj.FeedBackMessage.equals("")) {
+                        reportedPostDetail.get(0).FeedBacks.add(PostDetailObj.FeedBackMessage);
+                    }
+                    dictionary.put(PostDetailObj.post_id, reportedPostDetail);
+                } else {
+                    ArrayList<PostDetail> PostDetailslist = new ArrayList<PostDetail>();
+                    if (!PostDetailObj.FeedBackMessage.equals("")) {
+                        PostDetailObj.FeedBacks.add(PostDetailObj.FeedBackMessage);
+                    }
+                    PostDetailslist.add(PostDetailObj);
+                    if (isFb) {
+                        if (PostDetailObj.IsTwitterPost) {
+//                   if(!TwitterUtil.BlockedUserIds.contains(PostDetailObj.infringing_user_id)) dictionary.put(PostDetailObj.post_id,PostDetailslist);
+                        }
+                        if (PostDetailObj.IsComment) {
+                    //        if (!FacebookUtil.BlockedUsersIds.contains(PostDetailObj.infringing_user_id))
+                                dictionary.put(PostDetailObj.post_id, PostDetailslist);
+                        }
+                    } else {
+                        if (PostDetailObj.IsTwitterPost) {
+                      //      if (!TwitterUtil.BlockedUserIds.contains(PostDetailObj.infringing_user_id))
+                                dictionary.put(PostDetailObj.post_id, PostDetailslist);
+                        }
+                        if (PostDetailObj.IsComment) {
+                            //           if(!FacebookUtil.BlockedUsersIds.contains(PostDetailObj.infringing_user_id)) dictionary.put(PostDetailObj.post_id,PostDetailslist);
+                        }
+                    }
+                }
+          /*  }else
+                continue;*/
+            }
+        }
+
+        Intent intent  = new Intent(context , HighlightedPostsActivity.class);
+        intent.putExtra("posts",dictionary);
+        intent.putExtra("option",isFb);
+        context.startActivity(intent);
+  //      return posts;
+//        PostDetailDelegate.getPostsDetails(dictionary);
+    }
+
+
+    public PostDetail getReportedPostDetail(int index, JSONObject jsonChildNode) {
+
+        PostDetail PostDetailObj = new PostDetail();
+
+        if(jsonChildNode.has("User_ID")) { PostDetailObj.User_ID = jsonChildNode.optString("User_ID"); }
+        if(jsonChildNode.has("Parent_CommentID")) { PostDetailObj.ParentComment_ID = jsonChildNode.optString("Parent_CommentID"); }
+        if(jsonChildNode.has("infringingUser_name")) { PostDetailObj.infringing_user_name = jsonChildNode.optString("infringingUser_name"); }
+        if(jsonChildNode.has("infringingUserId")) { PostDetailObj.infringing_user_id = jsonChildNode.optString("infringingUserId"); }
+        if(jsonChildNode.has("infringingUser_ProfilePic")) { PostDetailObj.infringing_user_profile_pic = jsonChildNode.optString("infringingUser_ProfilePic"); }
+        if(jsonChildNode.has("CommentID")) { PostDetailObj.coment_id = jsonChildNode.optString("CommentID"); }
+        if(jsonChildNode.has("Post_ID")) { PostDetailObj.post_id = jsonChildNode.optString("Post_ID"); }
+        if(jsonChildNode.has("Post_Detail")) { PostDetailObj.post_Detail = jsonChildNode.optString("Post_Detail"); }
+        if(jsonChildNode.has("Post_Image")) { PostDetailObj.post_image = jsonChildNode.optString("Post_Image"); }
+        if(jsonChildNode.has("unlike_value")) { PostDetailObj.unlike_value = jsonChildNode.optInt("unlike_value"); }
+        if(jsonChildNode.has("IsTwitterPost")) { PostDetailObj.IsTwitterPost = jsonChildNode.optBoolean("IsTwitterPost"); }
+        if(jsonChildNode.has("FeedBackMessage")) { PostDetailObj.FeedBackMessage = jsonChildNode.optString("FeedBackMessage"); }
+        if(jsonChildNode.has("IsComment")) { PostDetailObj.IsComment = jsonChildNode.optBoolean("IsComment"); }
+        if(jsonChildNode.has("count")) { PostDetailObj.count = jsonChildNode.optInt("count"); }
+        if(PostDetailObj.IsTwitterPost)  PostDetailObj.PostUrl = "https://twitter.com/"+PostDetailObj.infringing_user_id+"/status/"+PostDetailObj.post_id.split("-")[0];
+        else  PostDetailObj.PostUrl = "https://www.facebook.com/"+PostDetailObj.post_id.split("-")[0];
+
+        return PostDetailObj;
+
+    }
+
+    public void getResults(HighlightedPostsActivity delegate){
+        delegate.getPostsDetails(dictionary);
+    }
 }

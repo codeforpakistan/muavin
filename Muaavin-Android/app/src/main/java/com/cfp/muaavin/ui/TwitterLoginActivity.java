@@ -30,7 +30,7 @@ public class TwitterLoginActivity extends Fragment implements UiUpdate{
     public static TwitterSession session = null;
     Context context ;
     String option;
-    String[] group = new String[]{"Sexual harassment", "Incitement to violence","Trans rights","All of the above"};
+    //String[] group = new String[]{"Sexual harassment", "Incitement to violence","Trans rights","All of the above"};
     public DataLoaderHelper controller;
 
 

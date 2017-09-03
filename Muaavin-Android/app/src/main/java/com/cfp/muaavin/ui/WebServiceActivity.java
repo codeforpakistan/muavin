@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.cfp.muaavin.facebook.AsyncResponsePosts;
@@ -24,6 +27,8 @@ import com.cfp.muaavin.adapter.Higlights_CustomAdapter;
 import com.cfp.muaavin.twitter.TwitterUtil;
 import com.cfp.muaavin.facebook.User;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import static com.cfp.muaavin.web.DialogBox.CategoryName;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -32,14 +37,14 @@ public class WebServiceActivity extends Fragment implements UserInterface , Asyn
 
     public Context context;
     TextView uiUpdate;
-    ArrayList<User> infringing_friends;
+    ArrayList<User> infringing_friends, searched_friends;
     ListView InfringingUserListView;
     String Group_name;
     ArrayList<String> InfringingUserIds;
     Button loadUsers;
     String DataType; View view;
-
-
+    EditText etSearch;
+    Higlights_CustomAdapter c;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -48,15 +53,57 @@ public class WebServiceActivity extends Fragment implements UserInterface , Asyn
         initializeUiElements();
         Group_name = CategoryName;
         loadUsers = (Button)view.findViewById(R.id.LoadButton);
+        etSearch = (EditText)view.findViewById(R.id.search);
 
         infringing_friends = (ArrayList<User>) getArguments().getSerializable("InfringingUsers");
         InfringingUserIds =  (ArrayList<String>) getArguments().getSerializable("InfringingUsersIds");
 
         DataType = getArguments().getString("DataType");
 
+        etSearch.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,int arg3) {
+            };
+            public void afterTextChanged(Editable s) {
+
+                String str = etSearch.getText().toString();
+
+                if(str.equals(""))
+                {
+                    c = new Higlights_CustomAdapter(getActivity(), infringing_friends);
+                    InfringingUserListView.setAdapter(c);
+                }
+                else
+                {
+
+                    searched_friends = new ArrayList<User>();
+
+                    for(int i = 0 ; i < infringing_friends.size() ; i++)
+                    {
+                        if(infringing_friends.get(i).name.toLowerCase().contains(str.toLowerCase()))
+                        {
+
+
+                            searched_friends.add(infringing_friends.get(i));
+                        }
+                    }
+
+                    c = new Higlights_CustomAdapter(getActivity(), searched_friends);
+                    InfringingUserListView.setAdapter(c);
+
+                }
+
+
+
+            }
+
+        });
+
+
         if(infringing_friends.size() == 0) { uiUpdate.setText(" Currently No record found"); }
         else { uiUpdate.setText("Group :" + Group_name); }
-        Higlights_CustomAdapter c = new Higlights_CustomAdapter(getActivity(), infringing_friends);
+         c = new Higlights_CustomAdapter(getActivity(), infringing_friends);
         InfringingUserListView.setAdapter(c);
 
         loadUsers.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +130,7 @@ public class WebServiceActivity extends Fragment implements UserInterface , Asyn
         getReportedFriends(InfringingUserIds, DataType); }
 
     @Override
-    public void postLink(String type, String postLink, String userProfile, String message, String userName) {
+    public void postLink(String type, String postLink, String userProfile, String message, String userName, int check) {
 
     }
 
@@ -103,7 +150,7 @@ public class WebServiceActivity extends Fragment implements UserInterface , Asyn
     }
 
     @Override
-    public void getBlockedUsers(ArrayList<String> FacebookUserIds , ArrayList<String> TwitterUserIds) {
+    public void getBlockedUsers(ArrayList<String> FacebookUserIds , ArrayList<String> TwitterUserIds, HashMap<String, String> fbblockDates, HashMap<String,String> twblockDates) {
 
     }
 
@@ -119,10 +166,41 @@ public class WebServiceActivity extends Fragment implements UserInterface , Asyn
         if(infringing_friends.size() > 0)
         {
             uiUpdate.setText("Group :"+Group_name);
-            Higlights_CustomAdapter c = new Higlights_CustomAdapter(getActivity(), infringing_friends);
+             c = new Higlights_CustomAdapter(getActivity(), infringing_friends);
             InfringingUserListView.setAdapter(c);
             //((BaseAdapter) InfringingUserListView.getAdapter()).notifyDataSetChanged();
         }
+    }
+
+    public void onResume()
+    {
+        super.onResume();
+
+        String str = etSearch.getText().toString();
+
+        if(str.equals(""))
+        {
+            c = new Higlights_CustomAdapter(getActivity(), infringing_friends);
+            InfringingUserListView.setAdapter(c);
+        }
+        else
+        {
+
+            searched_friends = new ArrayList<User>();
+
+            for(int i = 0 ; i < infringing_friends.size() ; i++)
+            {
+                if(infringing_friends.get(i).name.toLowerCase().contains(str.toLowerCase()))
+                {
+                    searched_friends.add(infringing_friends.get(i));
+                }
+            }
+
+            c = new Higlights_CustomAdapter(getActivity(), searched_friends);
+            InfringingUserListView.setAdapter(c);
+
+        }
+
     }
 }
 

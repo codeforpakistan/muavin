@@ -36,6 +36,22 @@ public class Admin implements UserInterface{
 
     }
 
+    public void browsePosts(Context context, String GroupName) throws Exception {
+        option = "highlightedPosts";
+        this.context = context;
+        String serverURL = baseURL+"Muaavin-Web/rest/Posts_Query/GetPosts?name="+ AesEncryption.encrypt(GroupName);
+        new WebHttpGetReq(option, context, this).execute(serverURL);
+
+    }
+
+    public void browseTweets(Context context, String GroupName) throws Exception {
+        option = "highlightedTweets";
+        this.context = context;
+        String serverURL = baseURL+"Muaavin-Web/rest/Posts_Query/GetPosts?name="+ AesEncryption.encrypt(GroupName);
+        new WebHttpGetReq(option, context, this).execute(serverURL);
+
+    }
+
     public void deletePost(Context context, String GroupName) throws Exception {
         option = "Delete Post";
         this.context = context;
@@ -73,4 +89,6 @@ public class Admin implements UserInterface{
         context.startActivity(intent);
         return posts;
     }
+
+
 }

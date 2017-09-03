@@ -61,7 +61,7 @@ public class Users_ListView extends Fragment implements AsyncResponsePosts{
     }
 
     @Override
-    public void postLink(String type, String postLink, String userProfile, String message, String userName) {
+    public void postLink(String type, String postLink, String userProfile, String message, String userName, int check) {
 
     }
 

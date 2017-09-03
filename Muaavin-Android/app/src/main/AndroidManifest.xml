@@ -50,11 +50,14 @@
         <activity
             android:name=".FacebookLoginActivity"
             android:label="@string/title_activity_facebook_login">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 getBlockedUsers
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -111,7 +114,6 @@
         <activity
             android:name=".UploadImages"
             android:label="@string/title_activity_upload_images">
-
             <activity android:name="com.twitter.sdk.android.core.identity.OAuthActivity" />
             <!--
             <intent-filter>
@@ -123,7 +125,19 @@
         </activity>
         <activity
             android:name=".CaptionActivity"
-            android:label="@string/title_activity_caption"></activity>
+            android:label="@string/title_activity_caption" />
+        <activity
+            android:name=".QRCodeActivity"
+            android:label="@string/title_activity_qrcode">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".FeedbackActivity"
+            android:label="@string/title_activity_feedback"></activity>
     </application>
 
 </manifest>

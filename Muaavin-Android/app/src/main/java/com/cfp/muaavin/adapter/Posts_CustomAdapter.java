@@ -35,7 +35,7 @@ public class Posts_CustomAdapter extends BaseAdapter {
     Context context;
     private static LayoutInflater inflater=null;
     //public String[] group = {"A","B","C"};
-    String[] group = new String[]{"Sexual harassment", "Incitement to violence","Trans rights"};
+    String[] group = new String[]{"Sexual harassment", "Incitement to violence","Hate speech"};
     public String user_signed_inID;
     boolean ClipBoardOption ;
     boolean IsReportedPost = false;

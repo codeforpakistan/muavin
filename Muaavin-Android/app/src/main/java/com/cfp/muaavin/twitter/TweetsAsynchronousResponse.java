@@ -11,5 +11,6 @@ import java.util.ArrayList;
 public interface TweetsAsynchronousResponse {
 
     public void tweetsAsynchronousResponse(ArrayList<Post> tweet, String option);
+    public void  postLink(String type, String postLink, String userProfile, String message, String userName, int check);
 
 }

@@ -19,7 +19,7 @@ public class User implements Serializable {
     public String state;
     public String ScreenName;
     public boolean isTwitterUser;
-
+    public static String blockDate;
    public User()
    {
 

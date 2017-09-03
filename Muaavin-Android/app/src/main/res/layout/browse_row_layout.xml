@@ -5,7 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/title"
-        android:background="#3b5998"
+        android:background="@color/barColor"
         android:padding="5dp"
         android:layout_margin="5dp"
         android:layout_height="wrap_content">
@@ -56,7 +56,7 @@
 
     <TextView android:text=" Comments :" android:layout_width="match_parent"
         android:layout_height="match_parent" android:id="@+id/Textbox3" android:textSize="15dp"
-        android:background="#3b5998" android:textColor="#ffffff"
+        android:background="@color/barColor" android:textColor="#ffffff"
         android:layout_below="@+id/Image_view"/>
 
 

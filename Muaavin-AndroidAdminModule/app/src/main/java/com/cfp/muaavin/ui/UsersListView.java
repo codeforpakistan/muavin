@@ -25,7 +25,7 @@ public class UsersListView extends ActionBarActivity {
 
         users = (ArrayList<User>) getIntent().getSerializableExtra("users");
         option = getIntent().getStringExtra("option");
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#3b5998"));
+        ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.appTheme)/*Color.parseColor("#3b5998")*/);
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         if(option.equals("Block User"))
         getSupportActionBar().setTitle("Muaavin Users");

@@ -41,6 +41,7 @@ import com.cfp.muaavin.adapter.CaptionGridAdapter;
 import com.cfp.muaavin.adapter.GridAdapter;
 import com.cfp.muaavin.facebook.User;
 import com.cfp.muaavin.helper.Images;
+import com.cfp.muaavin.helper.PrefManager;
 import com.cfp.muaavin.helper.border;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -82,6 +83,7 @@ public class CaptionActivity extends AppCompatActivity {
     List<ImageView> imgView = new ArrayList<ImageView>();
     List<EditText> etView = new ArrayList<EditText>();
     String post_url,user_profile,message,userName;
+    int check = 0 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,13 +97,14 @@ public class CaptionActivity extends AppCompatActivity {
             user_profile = bundle.getString("user_profile");
             message = bundle.getString("message");
             userName = bundle.getString("user_name");
+            check = bundle.getInt("check");
         }
 
         countSelected = 0;
         countUploaded = 0;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#3b5998"));
+        ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.barColor)/*Color.parseColor("#3b5998")*/);
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         grid = (GridView) findViewById(R.id.grid);
 
@@ -135,7 +138,7 @@ public class CaptionActivity extends AppCompatActivity {
                 EditText et1 = new EditText(this);
             params1.setMargins(30,10,30,10);
             et1.setLayoutParams(params1);
-            et1.setHint("caption");
+            et1.setHint("Description");
             et1.setId(i);
             etView.add(et1);
             li.addView(et1);
@@ -196,12 +199,39 @@ public class CaptionActivity extends AppCompatActivity {
                 else
                 params.putString("caption", caption);
 */
-            if(caption==null||caption.equals(""))
-                params.putString("caption", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported a comment of "+userName+" ( https://web.facebook.com/"+user_profile+" )"+" : "+message);
-            else
-                params.putString("caption", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported a comment of "+
-                        userName+" ( https://web.facebook.com/"+user_profile+" ) "+" : "+message+"\nReporter's remarks : "+caption);
-
+            if(PrefManager.getInstance(CaptionActivity.this).isAnonymous())
+            {
+                if(check==0) {
+                if (caption == null || caption.equals(""))
+                    params.putString("caption", " A comment of " + userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified" + " : " + message);
+                else
+                    params.putString("caption", " A comment of " +
+                            userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
+            }
+            else if(check==5) {
+                if (caption == null || caption.equals(""))
+                    params.putString("caption", " A comment of " + userName + " ( https://twitter.com/" + user_profile + " ) has been notified" + " : " + message);
+                else
+                    params.putString("caption", " A comment of " +
+                            userName + " ( https://twitter.com/" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
+            }
+            }
+            else{
+                if(check==0) {
+                    if (caption == null || caption.equals(""))
+                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user_profile + " )" + " : " + message);
+                    else
+                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                userName + " ( https://web.facebook.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                }
+                else if(check==5) {
+                    if (caption == null || caption.equals(""))
+                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/" + user_profile + " )" + " : " + message);
+                    else
+                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                userName + " ( https://twitter.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                }
+            }
                 Bitmap image = BitmapFactory.decodeFile(images.get(i).getPath());
                 ByteArrayOutputStream blob = new ByteArrayOutputStream();
                 image.compress(Bitmap.CompressFormat.PNG, 100, blob);
@@ -247,12 +277,39 @@ public class CaptionActivity extends AppCompatActivity {
         Bundle params = new Bundle();
         params.putString("tags", User.getLoggedInUserInformation().id);
 
-        if(caption==null||caption.equals(""))
-            params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported a comment of "+userName+" ( https://web.facebook.com/"+user_profile+" )"+" : "+message+"\n Visit post "+"https://web.facebook.com/"+post_url);
+        if(PrefManager.getInstance(CaptionActivity.this).isAnonymous()) {
+            if (check == 0) {
+                if (caption == null || caption.equals(""))
+                    params.putString("message", " A comment of " + userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified" + " : " + message + "\n Visit post " + "https://web.facebook.com/" + post_url);
+                else
+                    params.putString("message", " A comment of " +
+                            userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://web.facebook.com/" + post_url);
+            } else if (check == 5) {
+                if (caption == null || caption.equals(""))
+                    params.putString("message", " A comment of " + userName + " ( https://twitter.com/" + user_profile + " ) has been notified" + " : " + message + "\n Visit post " + "https://twitter.com/" + post_url);
+                else
+                    params.putString("message", " A comment of " +
+                            userName + " ( https://twitter.com/" + user_profile + " ) has been notified " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://twitter.com/" + post_url);
+            }
+        }
         else
-        params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported a comment of "+
-                userName+" ( https://web.facebook.com/"+user_profile+" ) "+" : "+message+"\nReporter's remarks : "+caption+" \n "+"Visit post "+"https://web.facebook.com/"+post_url);
-/*
+        {
+            if(check==0) {
+                if (caption == null || caption.equals(""))
+                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user_profile + " )" + " : " + message + "\n Visit post " + "https://web.facebook.com/" + post_url);
+                else
+                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                            userName + " ( https://web.facebook.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://web.facebook.com/" + post_url);
+            }
+            else if(check==5) {
+                if (caption == null || caption.equals(""))
+                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/" + user_profile + " )" + " : " + message + "\n Visit post " + "https://twitter.com/" + post_url);
+                else
+                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                            userName + " ( https://twitter.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://twitter.com/" + post_url);
+            }
+        }
+            /*
         params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following:\n"+
                 caption+"\n" + "Offender Details -> "+userName+" ( https://web.facebook.com/"+user_profile+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+"https://web.facebook.com/"+post_url);
 */
@@ -281,18 +338,46 @@ public class CaptionActivity extends AppCompatActivity {
 
                                 if (response.getError() == null)
                                 {hideLoading();
-                                    Toast.makeText(getApplicationContext(), "Photos reported successfully", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Photos notified successfully", Toast.LENGTH_LONG).show();
                                     CaptionActivity.this.finish();
                                 }
                                 else {
                                     Bundle params = new Bundle();
                                     params.putString("tags", User.getLoggedInUserInformation().id);
 
-                                    if(caption==null||caption.equals(""))
-                                        params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported a comment of "+userName+" ( https://web.facebook.com/"+user_profile+" )"+" : "+message);
+                                    if(PrefManager.getInstance(CaptionActivity.this).isAnonymous()) {
+                                    if(check ==0) {
+                                        if (caption == null || caption.equals(""))
+                                            params.putString("message", " A comment of " + userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified" + " : " + message);
+                                        else
+                                            params.putString("message", " A comment of " +
+                                                    userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
+                                    }
+                                    else if(check ==5)
+                                    {
+                                        if (caption == null || caption.equals(""))
+                                            params.putString("message", " A comment of " + userName + " ( https://twitter.com/" + user_profile + " ) has been notified" + " : " + message);
+                                        else
+                                            params.putString("message", " A comment of " +
+                                                    userName + " ( https://twitter.com/" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
+                                    }}
                                     else
-                                        params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported a comment of "+
-                                                userName+" ( https://web.facebook.com/"+user_profile+" ) "+" : "+message+"\nReporter's remarks : "+caption);
+                                    {
+                                        if(check ==0) {
+                                            if (caption == null || caption.equals(""))
+                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user_profile + " )" + " : " + message);
+                                            else
+                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                                        userName + " ( https://web.facebook.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                                        }
+                                        else if(check ==5)
+                                        {
+                                            if (caption == null || caption.equals(""))
+                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/" + user_profile + " )" + " : " + message);
+                                            else
+                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                                        userName + " ( https://twitter.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                                    }}
                                     try {
                                         int counter = 0;
                                         for (int i = 0; i < images.size(); i++) {
@@ -311,11 +396,11 @@ public class CaptionActivity extends AppCompatActivity {
                                                         public void onCompleted(GraphResponse response) {
                                                             hideLoading();
                                                             if (response.getError() == null){
-                                                                Toast.makeText(getApplicationContext(), "Photos reported successfully", Toast.LENGTH_LONG).show();
+                                                                Toast.makeText(getApplicationContext(), "Photos notified successfully", Toast.LENGTH_LONG).show();
                                                             CaptionActivity.this.finish();
                                                             }
                                                             else {
-                                                                Toast.makeText(getApplicationContext(), "Unable to report photos, Please try again.", Toast.LENGTH_LONG).show();
+                                                                Toast.makeText(getApplicationContext(), "Unable to notify photos, Please try again.", Toast.LENGTH_LONG).show();
                                                             }
 
                                                         }
@@ -323,7 +408,7 @@ public class CaptionActivity extends AppCompatActivity {
                                             ).executeAsync();
                                         }else {
                                             hideLoading();
-                                            Toast.makeText(getApplicationContext(), "No photos available to report, Please try again.", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getApplicationContext(), "No photos available to notify, Please try again.", Toast.LENGTH_LONG).show();
                                         }
                                     } catch (JSONException ex) {
                                     }  }
@@ -333,7 +418,7 @@ public class CaptionActivity extends AppCompatActivity {
                 ).executeAsync();
             }else {
                 hideLoading();
-                Toast.makeText(getApplicationContext(), "No photos available to report, Please try again.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "No photos available to notify, Please try again.", Toast.LENGTH_LONG).show();
                 CaptionActivity.this.finish();
             }
         } catch (JSONException ex) {
@@ -430,7 +515,7 @@ public class CaptionActivity extends AppCompatActivity {
     public void showDialog(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(CaptionActivity.this);
-        builder.setTitle("Add caption...");
+        builder.setTitle("Add description...");
         final EditText input = new EditText(CaptionActivity.this);
         input.setSingleLine(false);
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);

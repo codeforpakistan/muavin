@@ -52,7 +52,7 @@ public class FacebookLoginActivity extends ActionBarActivity  {
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_facebook_login);
-            ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#3b5998"));
+            ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.appTheme)/*Color.parseColor("#3b5998")*/);
             getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
         textview = (TextView)findViewById(R.id.tv2);

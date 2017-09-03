@@ -7,6 +7,7 @@ import com.cfp.muaavin.loaders.TweetsLoadAsyncTask;
 import com.twitter.sdk.android.core.models.Tweet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.cfp.muaavin.ui.TwitterLoginActivity.session;
@@ -24,6 +25,7 @@ public class TwitterUtil {
     public static ArrayList<String> tweetIds = new ArrayList<String>();
     public static ArrayList<User> Followers = new ArrayList<User>();
     public static ArrayList<String> BlockedUserIds = new ArrayList<String>();
+    public static HashMap<String,String> BlockDates = new HashMap<>();
     public static Tweet Tweet = null;
     public static User user = new User();
 

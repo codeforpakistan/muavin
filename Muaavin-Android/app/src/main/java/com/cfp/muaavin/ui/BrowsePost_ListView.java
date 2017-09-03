@@ -118,7 +118,7 @@ public class BrowsePost_ListView extends Fragment implements AsyncResponsePosts 
 
     }*/
  @Override
- public void postLink(String type, String postLink, String userProfile, String message, String userName) {
+ public void postLink(String type, String postLink, String userProfile, String message, String userName, int check) {
 
 
      if(type.equals("Link Posting")) {
@@ -210,7 +210,7 @@ public class BrowsePost_ListView extends Fragment implements AsyncResponsePosts 
     public void showDialog(final Bitmap bitmap, final String post, final String user, final String message, final String userName){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Add caption...");
+        builder.setTitle("Add description...");
         final EditText input = new EditText(context);
         input.setSingleLine(false);
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
@@ -254,9 +254,9 @@ public class BrowsePost_ListView extends Fragment implements AsyncResponsePosts 
         showLoading(context);
         Bundle params = new Bundle();
         if(caption.equals("")||caption==null)
-            params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following: \n Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+post);
+            params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has notified the following: \n Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+post);
         else
-            params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following:\n"+
+            params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has notified the following:\n"+
                     caption+"\n" + "Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+post);
         ByteArrayOutputStream blob = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, blob);
@@ -271,14 +271,14 @@ public class BrowsePost_ListView extends Fragment implements AsyncResponsePosts 
                     public void onCompleted(GraphResponse response) {
                         if (response.getError() == null) {
                             hideLoading();
-                            Toast.makeText(context, "Post reported successfully", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "Post notified successfully", Toast.LENGTH_LONG).show();
 
                         } else {
                             Bundle params = new Bundle();
                             if(caption.equals("")||caption==null)
-                                params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following: \n Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message);
+                                params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has notified the following: \n Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message);
                             else
-                                params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following:\n"+
+                                params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has notified the following:\n"+
                                         caption+"\n" + "Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message);
 
                             ByteArrayOutputStream blob = new ByteArrayOutputStream();
@@ -295,10 +295,10 @@ public class BrowsePost_ListView extends Fragment implements AsyncResponsePosts 
                                         public void onCompleted(GraphResponse response) {
                                             if (response.getError() == null) {
                                                 hideLoading();
-                                                Toast.makeText(context, "Post reported successfully", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(context, "Post notified successfully", Toast.LENGTH_LONG).show();
                                             } else {
                                                 hideLoading();
-                                                Toast.makeText(context, "Unable to report Post, Please try again", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(context, "Unable to notify Post, Please try again", Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     }

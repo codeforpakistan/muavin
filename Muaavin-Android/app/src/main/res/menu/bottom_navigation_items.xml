@@ -4,7 +4,7 @@
 
         <item
         android:id="@+id/Report"
-        android:title="Report"
+        android:title="Notify"
         android:icon="@drawable/report"
         />
 

@@ -26,7 +26,7 @@ public class PostListView extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_list_view);
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#3b5998"));
+        ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.appTheme)/*Color.parseColor("#3b5998")*/);
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
         context = this;

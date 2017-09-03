@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/title"
+        android:background="@color/barColor"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text=" Post "
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/Textbox2"
+            android:textSize="20dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_toLeftOf="@+id/report"
+            android:textColor="#ffffff" />
+
+
+        <ImageButton
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:src="@drawable/com_facebook_button_send_icon"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:visibility="gone"
+            android:id="@+id/report"/>
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/ProfilePic"
+        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_below="@+id/title"
+        />
+
+    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:id="@+id/Textbox1" android:textSize="15dp"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@+id/ProfilePic"
+        />
+
+    <ImageView
+        android:id="@+id/Image_view"
+        android:layout_width="300px"
+        android:layout_height="300px"
+        android:layout_below="@+id/Textbox1"
+        android:layout_centerInParent="true"/>
+
+    <TextView android:text=" Comments :" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:id="@+id/Textbox3" android:textSize="15dp"
+        android:background="@color/barColor" android:textColor="#ffffff"
+        android:layout_below="@+id/Image_view"/>
+
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/r2"
+        android:orientation="vertical"
+        android:layout_below="@+id/Textbox3"
+
+        />
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/linear2"
+        android:orientation="vertical"
+        android:layout_below="@+id/r2">
+
+    <TextView
+        android:text=" FeedBack :" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:id="@+id/FeedBack" android:textSize="20dp"
+        android:background="#427bdd" android:textColor="#ffffff"
+     />
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/linear3"
+        android:orientation="vertical"
+        android:layout_below="@+id/FeedBack">
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/Relative2"
+
+        android:layout_below="@+id/linear2">
+
+        <TextView
+            android:layout_height="40dp"
+            android:layout_width="20dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/total_unlikes"/>
+
+
+        <ImageButton
+            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:src="@drawable/unlike_thumb"
+            android:layout_toRightOf="@+id/total_unlikes"
+            android:id="@+id/image_button"/>
+
+        <EditText
+            android:layout_height="50dp"
+            android:layout_width="270dp"
+            android:id="@+id/edit_text1"
+            android:layout_toRightOf="@+id/image_button"
+            android:visibility="gone"
+            android:layout_toLeftOf="@+id/submit"
+
+            />
+
+        <Button android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:id="@+id/submit"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:text="Enter"
+            />
+
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>

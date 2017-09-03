@@ -41,6 +41,7 @@ import com.cfp.muaavin.facebook.clipboard;
 import com.cfp.muaavin.helper.AesEncryption;
 import com.cfp.muaavin.helper.ClipBoardHelper;
 import com.cfp.muaavin.helper.DataLoaderHelper;
+import com.cfp.muaavin.helper.PrefManager;
 import com.cfp.muaavin.twitter.TwitterUtil;
 import com.cfp.muaavin.facebook.User;
 import com.cfp.muaavin.web.DialogBox;
@@ -69,6 +70,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -81,9 +83,9 @@ import static com.cfp.muaavin.web.DialogBox.promptInputDialog;
 
 public class MenuActivity extends AppCompatActivity implements UserInterface, UiUpdate, clipboard {
 
-    public static String[] ReportPostOption = {"Report Posts", "Report Clipboard Post", "Report Tweets", "Report Group Posts"};
-    static String[] HighlightUserOption = {"Highlighted Facebook Users", "Highlighted Twitter Users"};
-    static String[] BrowseOption = {"Browse Reported Posts", "Browse Reported Tweets", "Manage Reports"};
+    public static String[] ReportPostOption = {"Notify Posts", "Notify Clipboard Post", "Notify Tweets", "Notify Group Posts"};
+    static String[] HighlightUserOption = {"Highlighted Facebook Users", "Highlighted Twitter Users","Highlighted Facebook Posts", "Highlighted Twitter Posts"};
+    static String[] BrowseOption = {"Browse Notified Posts", "Browse Notified Tweets", "Manage Notifications"};
     FriendManagement friend_management;
     Context contex;
     String user_id;
@@ -117,14 +119,13 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
         Fabric.with(MenuActivity.this, new Twitter(authConfig));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#3b5998"));
+        ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.appTheme)/*Color.parseColor("#3b5998")*/);
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
         setContentView(R.layout.activity_menu);
 
         //Fragment Mainfragment = new Fragment();
         //getFragmentManager().beginTransaction().replace(R.id.fragment_container,  Mainfragment).commit();
-        showDialog(this);
         bottomNavigationBar = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
         bottomNavigationBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -199,15 +200,21 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
     }
 
     @Override
-    public void getBlockedUsers(ArrayList<String> FacebookBlockedUserIds, ArrayList<String> TwitterBlockedUserIds) {
+    public void getBlockedUsers(ArrayList<String> FacebookBlockedUserIds, ArrayList<String> TwitterBlockedUserIds, HashMap<String, String> fbblockDates, HashMap<String,String> twblockDates) {
 
         FacebookUtil.BlockedUsersIds = FacebookBlockedUserIds;
         TwitterUtil.BlockedUserIds = TwitterBlockedUserIds;
+        FacebookUtil.BlockDates = fbblockDates;
+        TwitterUtil.BlockDates = twblockDates;
+
+        user_id = String.valueOf(AccessToken.getCurrentAccessToken().getUserId());
         if (FacebookBlockedUserIds.contains(user_id)) {
             User.user_authentication = false;
+            User.blockDate = FacebookUtil.BlockDates.get(user_id);
         } else {
             User.user_authentication = true;
         }
+        showDialog(this);
         //ClipBoardHelper.getPostFromClipBoard(contex , user_id,MenuActivity.this );
     }
 
@@ -231,6 +238,24 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+
+        MenuItem btnIsAnonymous = menu.findItem(R.id.isAnonymous);
+
+        if (PrefManager.getInstance(MenuActivity.this).isAnonymous())
+            {
+                btnIsAnonymous.setChecked(true);
+            }
+            else
+            {
+                btnIsAnonymous.setChecked(false);
+            }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
            /* case R.id.menu_item_screenshot:
@@ -247,6 +272,22 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
                     takeScreenshot();
                 }
                 break;*/
+            case R.id.isAnonymous:
+                if(item.isChecked()){
+                    PrefManager.getInstance(MenuActivity.this).setPrefIsAnonymous(false);
+                    item.setChecked(false);
+                }
+                else
+                {
+                    PrefManager.getInstance(MenuActivity.this).setPrefIsAnonymous(true);
+                    item.setChecked(true);
+                }
+                break;
+            case R.id.rating:
+                Intent intent = new Intent(MenuActivity.this, FeedbackActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.menu_item_new_quote:
 /*
                 Bundle params = new Bundle();
@@ -275,9 +316,9 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
 */
 
                  LogOut();
-                Intent intent = new Intent(MenuActivity.this, FacebookLoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                Intent intnt = new Intent(MenuActivity.this, FacebookLoginActivity.class);
+                intnt.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intnt);
                 break;
             case android.R.id.home:
                 if (getFragmentManager().getBackStackEntryCount() > 0) {
@@ -335,11 +376,19 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setTitle("Muaavin");
 
-        builder.setMessage("Welcome to Muaavin!!! \n Enabling victims and witnesses of online harassment to instantly report incidents to a trusted network of friends/allies.");
+        //String.valueOf(AccessToken.getCurrentAccessToken().getUserId()
+        if(User.user_authentication == false) {
+            int days = 7-Integer.parseInt(User.blockDate);
+            builder.setMessage("Welcome to Muaavin!!! \n Your account is currently blocked due to some suspicious activities. It would be unblocked after "+ days + " days.");
+
+        }            else
+        builder.setMessage("Welcome to Muaavin!!! \n Enabling victims and witnesses of online harassment to instantly notify incidents to a trusted network of friends/allies.");
         builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
 
+                if(User.user_authentication == false)
+                    MenuActivity.this.finish();
                 /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)

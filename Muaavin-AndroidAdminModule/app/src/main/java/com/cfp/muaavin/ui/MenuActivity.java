@@ -18,13 +18,14 @@ public class MenuActivity extends ActionBarActivity {
     Admin admin = new Admin();
     Context context;
     //String[] group = {"A", "B", "C","All"};
-    String[] group = new String[]{"Sexual harassment", "Incitement to violence","Trans rights","All of the above"};
+    public static String[] group = new String[]{"Sexual harassment", "Incitement to violence","Hate Speech","All of the above"};
+    public static String[] groupInfo = new String[]{"Sexual harassment Info", "Incitement to violence Info","Hate Speech Info","All of the above Info"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#3b5998"));
+        ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.appTheme)/*Color.parseColor("#3b5998")*/);
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
         context = this;
@@ -38,9 +39,17 @@ public class MenuActivity extends ActionBarActivity {
 
     public void deletePost(View view)
     {
-        DialogBoxHelper.showDialogBox(admin,  context, group);
+        DialogBoxHelper.showDialogBox(admin,  context, group,false,"posts");
     }
 
+    public void highlightedPosts(View view) throws Exception
+    {
+        DialogBoxHelper.showDialogBox(admin,  context, group, true,"highlightedPosts");
+    }
+    public void highlightedTweets(View view) throws Exception
+    {
+        DialogBoxHelper.showDialogBox(admin,  context, group,false,"highlightedTweets");
+    }
     public void viewReportedUser(View view) throws Exception
     {
         admin.viewReportedUser(context);

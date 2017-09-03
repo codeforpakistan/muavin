@@ -10,7 +10,7 @@
     <TextView
         android:layout_height="40dp"
         android:layout_width="fill_parent"
-        android:background="#3b5998"
+        android:background="@color/appTheme"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         android:text="Muaavin"
@@ -35,52 +35,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Users"
-        android:id="@+id/Block"
-        android:layout_above="@+id/delete"
-        android:width="200dp"
-        android:background="#3b5998"
-        android:textColor="#FFF"
-
-        android:onClick="blockUser"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Reported Posts"
-        android:id="@+id/delete"
-        android:onClick="deletePost"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:background="#3b5998"
-        android:textColor="#FFF"
-        android:layout_marginBottom="20dp"
-        android:width="200dp"
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Reported Users"
-        android:id="@+id/ViewReportedUser"
-        android:layout_below="@+id/delete"
-        android:background="#3b5998"
-        android:textColor="#FFF"
-        android:layout_centerHorizontal="true"
-        android:width="200dp"
-        android:onClick="viewReportedUser"
-        />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="___"
         android:id="@+id/browsePost"
         android:layout_below="@+id/ViewReportedUser"
         android:layout_centerHorizontal="true"
-        android:background="#3b5998"
+        android:background="@color/appTheme"
         android:textColor="#FFF"
         android:layout_marginTop="19dp"
         android:width="200dp"
@@ -88,22 +47,92 @@
         android:onClick="BrowsePost"
         />
 
-   <!-- <TextView android:layout_below="@+id/delete"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:background="#3b5998"
-        android:layout_marginTop="320dp"/>
-
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=""
-        android:id="@+id/textView3"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="29dp"
-        android:textSize="30px"/>
--->
+        android:text="View Users"
+        android:id="@+id/Block"
+        android:width="200dp"
+        android:background="@color/appTheme"
+        android:textColor="#FFF"
+        android:onClick="blockUser"
+        android:layout_above="@+id/delete"
+        android:layout_alignLeft="@+id/delete"
+        android:layout_alignStart="@+id/delete"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Reported Posts"
+        android:id="@+id/delete"
+        android:onClick="deletePost"
+        android:background="@color/appTheme"
+        android:textColor="#FFF"
+        android:width="200dp"
+        android:layout_above="@+id/ViewReportedUser"
+        android:layout_alignLeft="@+id/ViewReportedUser"
+        android:layout_alignStart="@+id/ViewReportedUser" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Reported Users"
+        android:id="@+id/ViewReportedUser"
+        android:background="@color/appTheme"
+        android:textColor="#FFF"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:width="200dp"
+        android:onClick="viewReportedUser"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="View Notified Posts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/appTheme"
+        android:textColor="#FFF"
+        android:id="@+id/button2"
+        android:onClick="highlightedPosts"
+        android:layout_below="@+id/ViewReportedUser"
+        android:layout_alignLeft="@+id/ViewReportedUser"
+        android:layout_alignStart="@+id/ViewReportedUser"
+        android:layout_alignRight="@+id/ViewReportedUser"
+        android:layout_alignEnd="@+id/ViewReportedUser" />
+
+    <Button
+        android:text="View Notified Tweets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:onClick="highlightedTweets"
+        android:background="@color/appTheme"
+        android:textColor="#FFF"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/button2"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2"
+        android:layout_alignRight="@+id/button2"
+        android:layout_alignEnd="@+id/button2" />
+
+    <!-- <TextView android:layout_below="@+id/delete"
+         android:layout_height="fill_parent"
+         android:layout_width="fill_parent"
+         android:background="#3b5998"
+         android:layout_marginTop="320dp"/>
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textAppearance="?android:attr/textAppearanceLarge"
+         android:text=""
+         android:id="@+id/textView3"
+         android:layout_below="@+id/textView"
+         android:layout_marginTop="29dp"
+         android:textSize="30px"/>
+ -->
 
 
 </RelativeLayout>

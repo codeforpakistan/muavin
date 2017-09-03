@@ -13,7 +13,8 @@ import static com.cfp.muaavin.facebook.FacebookUtil.clearFacebookData;
 public class FriendManagement  {
 
     //static String[] group1  =  {"A","B","C","All"};
-    static String[] group1 = new String[]{"Sexual harassment", "Incitement to violence","Trans rights","All of the above"};
+    public static String[] group1 = new String[]{"Sexual harassment", "Incitement to violence","Hate speech","All of the above"};
+    public static String[] groupInfo = new String[]{"Sexual harassment Info", "Incitement to violence Info","Hate speech Info","All of the above Info"};
     Context context;
     DataLoaderHelper controller;
 
@@ -45,6 +46,22 @@ public class FriendManagement  {
     public void BrowseTweets(Context context, Activity activity)
     {
         int check = 333;
+        DialogBox dialogBox = new DialogBox();
+        String user_id = "";
+        dialogBox.ShowDialogBOx3(context, "Select Group", FriendManagement.group1, check, user_id,activity,null, false);
+    }
+
+    public void HighLightedPosts(Context context, Activity activity)
+    {
+        int check = 1000;
+        DialogBox dialogBox = new DialogBox();
+        String user_id = "";
+        dialogBox.ShowDialogBOx3(context, "Select Group", FriendManagement.group1, check, user_id,activity,null, false);
+    }
+
+    public void HighlightedTweets(Context context, Activity activity)
+    {
+        int check = 1001;
         DialogBox dialogBox = new DialogBox();
         String user_id = "";
         dialogBox.ShowDialogBOx3(context, "Select Group", FriendManagement.group1, check, user_id,activity,null, false);

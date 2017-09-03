@@ -25,6 +25,7 @@ public class PostDetail {
     public String FeedBackMessage;
     public  boolean IsTwitterPost;
     public  boolean IsComment;
+    public  int count;
 
     public ArrayList<String> FeedBacks = new ArrayList<String>();
 
