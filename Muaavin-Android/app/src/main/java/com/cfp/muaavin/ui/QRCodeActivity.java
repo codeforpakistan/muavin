@@ -9,8 +9,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.cfp.muaavin.helper.PrefManager;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class QRCodeActivity extends ActionBarActivity {
 
@@ -57,4 +60,40 @@ public class QRCodeActivity extends ActionBarActivity {
 
     }
 
+    public void ScanCode(View view){
+        IntentIntegrator integrator = new IntentIntegrator(this);
+
+        integrator.setPrompt("Scan Code");
+
+        integrator.setOrientationLocked(false);
+
+        integrator.initiateScan();
+
+    }
+
+    @Override
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
+        if (result != null) {
+
+            if (result.getContents() == null) {
+
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+
+            } else {
+
+                etCode.setText(result.getContents());
+
+            }
+
+        } else {
+
+            super.onActivityResult(requestCode, resultCode, data);
+
+        }
+
+    }
 }
