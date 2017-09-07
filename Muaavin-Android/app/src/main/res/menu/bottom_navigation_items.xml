@@ -16,7 +16,7 @@
 
          <item
         android:id="@+id/HighlightUsers"
-        android:title="Highlighted Users"
+        android:title="Highlighted"
         android:icon="@drawable/highlight"
         />
 

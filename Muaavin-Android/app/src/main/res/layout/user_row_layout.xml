@@ -37,7 +37,7 @@
         android:textSize="12dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@color/barColor"
+        android:background="@color/appTheme"
 
         android:textColor="#ffffff"/>
 

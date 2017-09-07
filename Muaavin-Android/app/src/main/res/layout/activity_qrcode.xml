@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="52dp"
         android:textColor="#FFF"
-        android:background="@color/barColor"
+        android:background="@color/appTheme"
         android:id="@+id/btnVerify" />
 
     <ImageView
@@ -55,7 +55,7 @@
         android:layout_alignLeft="@+id/btnVerify"
         android:layout_alignStart="@+id/btnVerify"
         android:textColor="#FFF"
-        android:background="@color/barColor"
+        android:background="@color/appTheme"
         android:onClick="ScanCode"
         android:layout_marginBottom="18dp" />
 </RelativeLayout>

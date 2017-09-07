@@ -125,6 +125,7 @@
         <Button android:layout_height="50dp"
             android:layout_width="100dp"
             android:id="@+id/submit"
+
             android:layout_alignParentRight="true"
             android:text="Enter"
             />

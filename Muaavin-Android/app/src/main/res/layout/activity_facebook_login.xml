@@ -38,7 +38,7 @@
         android:height="50dp"
         android:width="170dp"
         android:layout_below="@+id/login_button1"
-        android:background="@color/barColor"
+        android:background="@color/appTheme"
         android:textColor="#ffffff"
         />
 
