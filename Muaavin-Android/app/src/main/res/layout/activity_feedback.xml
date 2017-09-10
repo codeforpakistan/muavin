@@ -19,7 +19,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="34sp"
         android:textStyle="normal|bold"
-        android:textColor="#000"
+        android:textColor="@color/appTheme"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

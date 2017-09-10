@@ -19,7 +19,7 @@ public class MenuActivity extends ActionBarActivity {
     Context context;
     //String[] group = {"A", "B", "C","All"};
     public static String[] group = new String[]{"Sexual harassment", "Incitement to violence","Hate Speech","All of the above"};
-    public static String[] groupInfo = new String[]{"Sexual harassment Info", "Incitement to violence Info","Hate Speech Info","All of the above Info"};
+    public static String[] groupInfo = new String[]{"*Sexual Harassment* includes all kinds of unwanted sexual advances, comments and associations.", "*Incitement to Violence* is speech that directly calls for violent actions against an individual or group.","*Hate speech* is speech that attacks people on basis of personal attributes like community and gender etc.","All of the above Info"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

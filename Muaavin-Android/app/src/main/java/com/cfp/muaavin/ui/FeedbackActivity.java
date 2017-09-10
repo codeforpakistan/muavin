@@ -1,7 +1,9 @@
 package com.cfp.muaavin.ui;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +16,7 @@ import com.cfp.muaavin.ui.R;
 import com.cfp.muaavin.web.WebHttpGetReq;
 import com.facebook.Profile;
 
-public class FeedbackActivity extends AppCompatActivity implements FeedbackInterface {
+public class FeedbackActivity extends ActionBarActivity implements FeedbackInterface {
 
     EditText etcomments = null;
     Button send;
@@ -24,6 +26,8 @@ public class FeedbackActivity extends AppCompatActivity implements FeedbackInter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
+        ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.appTheme)/*Color.parseColor("#3b5998")*/);
+        getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
         etcomments = (EditText)findViewById(R.id.comments);
         send = (Button)findViewById(R.id.send);

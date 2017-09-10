@@ -24,6 +24,11 @@
       android:title="Feedback and Rating"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content" />
+  <item android:id="@+id/about"
+      android:icon="@drawable/group"
+      android:title="Best Practices"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" />
 
     <item android:id="@+id/menu_item_new_quote"
         android:icon="@drawable/group"

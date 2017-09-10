@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationName"
-            android:value="Muaavin" />
+            android:value="Muavin" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -137,7 +137,10 @@
         </activity>
         <activity
             android:name=".FeedbackActivity"
-            android:label="@string/title_activity_feedback"></activity>
+            android:label="@string/title_activity_feedback" />
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_abount"></activity>
     </application>
 
 </manifest>

@@ -104,7 +104,7 @@ public class CaptionActivity extends AppCompatActivity {
         countUploaded = 0;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.barColor)/*Color.parseColor("#3b5998")*/);
+        ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.appTheme)/*Color.parseColor("#3b5998")*/);
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         grid = (GridView) findViewById(R.id.grid);
 
@@ -203,10 +203,10 @@ public class CaptionActivity extends AppCompatActivity {
             {
                 if(check==0) {
                 if (caption == null || caption.equals(""))
-                    params.putString("caption", " A comment of " + userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified" + " : " + message);
+                    params.putString("caption", " A comment of " + userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " ) has been notified" + " : " + message);
                 else
                     params.putString("caption", " A comment of " +
-                            userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
+                            userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
             }
             else if(check==5) {
                 if (caption == null || caption.equals(""))
@@ -219,10 +219,10 @@ public class CaptionActivity extends AppCompatActivity {
             else{
                 if(check==0) {
                     if (caption == null || caption.equals(""))
-                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user_profile + " )" + " : " + message);
+                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://www.facebook.com/app_scoped_user_id/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " )" + " : " + message);
                     else
-                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
-                                userName + " ( https://web.facebook.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://www.facebook.com/app_scoped_user_id/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
                 }
                 else if(check==5) {
                     if (caption == null || caption.equals(""))
@@ -275,15 +275,15 @@ public class CaptionActivity extends AppCompatActivity {
     public void uploadAlbum(final String caption)
     {
         Bundle params = new Bundle();
-        params.putString("tags", User.getLoggedInUserInformation().id);
 
         if(PrefManager.getInstance(CaptionActivity.this).isAnonymous()) {
             if (check == 0) {
+                String ids[] = post_url.split("_");
                 if (caption == null || caption.equals(""))
-                    params.putString("message", " A comment of " + userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified" + " : " + message + "\n Visit post " + "https://web.facebook.com/" + post_url);
+                    params.putString("message", " A comment of " + userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " ) has been notified" + " : " + message + "\n Visit post " + "http://www.facebook.com/"+ids[0]+"/posts/"+ids[1]);
                 else
                     params.putString("message", " A comment of " +
-                            userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://web.facebook.com/" + post_url);
+                            userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " ) has been notified " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "http://www.facebook.com/"+ids[0]+"/posts/"+ids[1]);
             } else if (check == 5) {
                 if (caption == null || caption.equals(""))
                     params.putString("message", " A comment of " + userName + " ( https://twitter.com/" + user_profile + " ) has been notified" + " : " + message + "\n Visit post " + "https://twitter.com/" + post_url);
@@ -294,12 +294,15 @@ public class CaptionActivity extends AppCompatActivity {
         }
         else
         {
+            String[] ids = post_url.split("_");
+            String[] arr = {User.getLoggedInUserInformation().id};
+            params.putStringArray("tags", arr);
             if(check==0) {
                 if (caption == null || caption.equals(""))
-                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user_profile + " )" + " : " + message + "\n Visit post " + "https://web.facebook.com/" + post_url);
+                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://www.facebook.com/app_scoped_user_id/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " )" + " : " + message + "\n Visit post " + "http://www.facebook.com/"+ids[0]+"/posts/"+ids[1]);
                 else
-                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
-                            userName + " ( https://web.facebook.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://web.facebook.com/" + post_url);
+                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://www.facebook.com/app_scoped_user_id/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                            userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "http://www.facebook.com/"+ids[0]+"/posts/"+ids[1]);
             }
             else if(check==5) {
                 if (caption == null || caption.equals(""))
@@ -309,6 +312,7 @@ public class CaptionActivity extends AppCompatActivity {
                             userName + " ( https://twitter.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://twitter.com/" + post_url);
             }
         }
+
             /*
         params.putString("message", User.getLoggedInUserInformation().name +" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following:\n"+
                 caption+"\n" + "Offender Details -> "+userName+" ( https://web.facebook.com/"+user_profile+" ) "+" \n Comment -> "+message+"\n For further details please use the following link: \n "+"https://web.facebook.com/"+post_url);
@@ -343,15 +347,14 @@ public class CaptionActivity extends AppCompatActivity {
                                 }
                                 else {
                                     Bundle params = new Bundle();
-                                    params.putString("tags", User.getLoggedInUserInformation().id);
 
                                     if(PrefManager.getInstance(CaptionActivity.this).isAnonymous()) {
                                     if(check ==0) {
                                         if (caption == null || caption.equals(""))
-                                            params.putString("message", " A comment of " + userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified" + " : " + message);
+                                            params.putString("message", " A comment of " + userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " ) has been notified" + " : " + message);
                                         else
                                             params.putString("message", " A comment of " +
-                                                    userName + " ( https://web.facebook.com/" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
+                                                    userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
                                     }
                                     else if(check ==5)
                                     {
@@ -363,12 +366,15 @@ public class CaptionActivity extends AppCompatActivity {
                                     }}
                                     else
                                     {
+
+                                        String[] arr = {User.getLoggedInUserInformation().id};
+                                        params.putStringArray("tags", arr);
                                         if(check ==0) {
                                             if (caption == null || caption.equals(""))
-                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user_profile + " )" + " : " + message);
+                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://www.facebook.com/app_scoped_user_id/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " )" + " : " + message);
                                             else
-                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
-                                                        userName + " ( https://web.facebook.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://www.facebook.com/app_scoped_user_id/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                                        userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
                                         }
                                         else if(check ==5)
                                         {
@@ -615,7 +621,7 @@ public class CaptionActivity extends AppCompatActivity {
 
     void populateGrid() {
         images = new ArrayList<Images>();
-        File file = new File(Environment.getExternalStorageDirectory(), "Muaavin");
+        File file = new File(Environment.getExternalStorageDirectory(), "Muavin");
         if (file.exists() && file.isDirectory()) {
             listFile = file.listFiles();
             if (listFile.length > 0) {

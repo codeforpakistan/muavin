@@ -107,13 +107,13 @@ public class Tweet_ListView extends Fragment implements TweetsAsynchronousRespon
 
         try {
             // image naming and path  to include sd card  appending name you choose for file
-            String path = Environment.getExternalStorageDirectory().toString() + "/Muaavin";
+            String path = Environment.getExternalStorageDirectory().toString() + "/Muavin";
             File f = new File(path);
             if(f.exists()){}
             else
                 f.mkdir();
 
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/Muaavin/" + now + ".jpg";
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/Muavin/" + now + ".jpg";
 
             // create bitmap screen capture
             View v1 = getActivity().getWindow().getDecorView().getRootView();
@@ -243,6 +243,7 @@ public class Tweet_ListView extends Fragment implements TweetsAsynchronousRespon
             }
         }
         else{
+            params.putString("tags", User.getLoggedInUserInformation().id);
             if(check==0) {
                 if (caption == null || caption.equals(""))
                     params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user + " )" + " : " + message + "\n Visit post " + "https://web.facebook.com/" + post);
@@ -302,6 +303,7 @@ public class Tweet_ListView extends Fragment implements TweetsAsynchronousRespon
                                 }}
                             else
                             {
+                                params.putString("tags", User.getLoggedInUserInformation().id);
                                 if(check==0) {
                                     if (caption == null || caption.equals(""))
                                         params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user + " )" + " : " + message);

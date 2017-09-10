@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,11 @@ public class DialogCustomAdapter extends BaseAdapter {
         View rowView = inflater.inflate(R.layout.dialog_row, null);//
         final Holder holder = getHolder(rowView);
 
-        holder.PostTextview.setText(Posts.get(position));
+        holder.PostTextview.setText(Html.fromHtml(Posts.get(position)));
+        if(Posts.get(position).toString().contains("All of the above"))
+        {
+            holder.CrossButton.setVisibility(View.GONE);
+        }
 
         holder.CrossButton.setOnClickListener(new View.OnClickListener() {
             @Override

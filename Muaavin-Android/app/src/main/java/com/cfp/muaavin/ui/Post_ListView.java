@@ -47,6 +47,7 @@ import com.facebook.HttpMethod;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -131,13 +132,13 @@ public class Post_ListView extends Fragment implements AsyncResponsePosts {
 
         try {
             // image naming and path  to include sd card  appending name you choose for file
-            String path = Environment.getExternalStorageDirectory().toString() + "/Muaavin";
+            String path = Environment.getExternalStorageDirectory().toString() + "/Muavin";
             File f = new File(path);
             if(f.exists()){}
             else
                 f.mkdir();
 
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/Muaavin/" + now + ".jpg";
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/Muavin/" + now + ".jpg";
 
             // create bitmap screen capture
             View v1 = getActivity().getWindow().getDecorView().getRootView();
@@ -251,11 +252,12 @@ public class Post_ListView extends Fragment implements AsyncResponsePosts {
 
         if(PrefManager.getInstance(context).isAnonymous()){
             if(check==0) {
+                String ids[] = post.split("_");
                 if (caption == null || caption.equals(""))
-                    params.putString("message", " A comment of " + userName + " ( https://web.facebook.com/" + user + " )" + " has been notified : " + message + "\n Visit post " + "https://web.facebook.com/" + post);
+                    params.putString("message", " A comment of " + userName + " ( https://www.facebook.com/app_scoped_user_id/" + user + " )" + " has been notified : " + message + "\n Visit post " + "http://www.facebook.com/"+ids[0]+"/posts/"+ids[1]);
                 else
                     params.putString("message", " A comment of " +
-                            userName + " ( https://web.facebook.com/" + user + " ) " + "has been notified : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://web.facebook.com/" + post);
+                            userName + " ( https://www.facebook.com/app_scoped_user_id/" + user + " ) " + "has been notified : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "http://www.facebook.com/"+ids[0]+"/posts/"+ids[1]);
             }
             else if(check ==5)
             {
@@ -267,12 +269,17 @@ public class Post_ListView extends Fragment implements AsyncResponsePosts {
             }
         }
         else{
-        if(check==0) {
-        if (caption == null || caption.equals(""))
-        params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user + " )" + " : " + message + "\n Visit post " + "https://web.facebook.com/" + post);
+            String[] arr = {User.getLoggedInUserInformation().id};
+            params.putStringArray("tags", arr);
+
+            if(check==0) {
+                String ids[] = post.split("_");
+
+                if (caption == null || caption.equals(""))
+        params.putString("message", User.getLoggedInUserInformation().name + " ( https://www.facebook.com/app_scoped_user_id/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://www.facebook.com/app_scoped_user_id/" + user + " )" + " : " + message + "\n Visit post " + "http://www.facebook.com/"+ids[0]+"/posts/"+ids[1]);
         else
-        params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
-                userName + " ( https://web.facebook.com/" + user + " ) " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://web.facebook.com/" + post);
+        params.putString("message", User.getLoggedInUserInformation().name + " ( https://www.facebook.com/app_scoped_user_id/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                userName + " ( https://www.facebook.com/app_scoped_user_id/" + user + " ) " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " +"http://www.facebook.com/"+ids[0]+"/posts/"+ids[1]);
         }
         else if(check ==5)
         {
@@ -287,6 +294,7 @@ public class Post_ListView extends Fragment implements AsyncResponsePosts {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, blob);
         byte[] bitmapdata = blob.toByteArray();
         params.putByteArray("picture", bitmapdata);
+        params.putString("link", "https://www.google.com/");
         new GraphRequest(
                 new AccessToken(MenuActivity.pageToken, AccessToken.getCurrentAccessToken().getApplicationId(), AccessToken.getCurrentAccessToken().getUserId(), AccessToken.getCurrentAccessToken().getPermissions(), AccessToken.getCurrentAccessToken().getDeclinedPermissions(), AccessToken.getCurrentAccessToken().getSource(), AccessToken.getCurrentAccessToken().getExpires(), AccessToken.getCurrentAccessToken().getLastRefresh()),
                 "/"+ MenuActivity.pageId+"/photos",
@@ -311,10 +319,10 @@ public class Post_ListView extends Fragment implements AsyncResponsePosts {
                                 {
                             if(check==0) {
                                 if (caption == null || caption.equals(""))
-                                    params.putString("message", " A comment of " + userName + " ( https://web.facebook.com/" + user + " )" + " has been notified : " + message);
+                                    params.putString("message", " A comment of " + userName + " ( https://www.facebook.com/app_scoped_user_id/" + user + " )" + " has been notified : " + message);
                                 else
                                     params.putString("message", " A comment of " +
-                                            userName + " ( https://web.facebook.com/" + user + " ) " + "has been notified : " + message + "\nNotifier's remarks : " + caption);
+                                            userName + " ( https://www.facebook.com/app_scoped_user_id/" + user + " ) " + "has been notified : " + message + "\nNotifier's remarks : " + caption);
                             }
                             else if(check==5)
                             {
@@ -326,12 +334,14 @@ public class Post_ListView extends Fragment implements AsyncResponsePosts {
                             }}
                                 else
                                 {
+                                    String[] arr = {User.getLoggedInUserInformation().id};
+                                    params.putStringArray("tags", arr);
                                     if(check==0) {
                                         if (caption == null || caption.equals(""))
-                                            params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user + " )" + " : " + message);
+                                            params.putString("message", User.getLoggedInUserInformation().name + " ( https://www.facebook.com/app_scoped_user_id/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://www.facebook.com/app_scoped_user_id/" + user + " )" + " : " + message);
                                         else
-                                            params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
-                                                    userName + " ( https://web.facebook.com/" + user + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                                            params.putString("message", User.getLoggedInUserInformation().name + " ( https://www.facebook.com/app_scoped_user_id/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                                    userName + " ( https://www.facebook.com/app_scoped_user_id/" + user + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
                                     }
                                     else if(check==5)
                                     {
@@ -342,6 +352,8 @@ public class Post_ListView extends Fragment implements AsyncResponsePosts {
                                                     userName + " ( https://twitter.com/" + user + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
                                     }
                                 }
+//                            params.putString("link", "https://web.facebook.com/" + User.getLoggedInUserInformation().name);
+
                             ByteArrayOutputStream blob = new ByteArrayOutputStream();
                             bitmap.compress(Bitmap.CompressFormat.PNG, 100, blob);
                             byte[] bitmapdata = blob.toByteArray();
@@ -369,6 +381,144 @@ public class Post_ListView extends Fragment implements AsyncResponsePosts {
                 }
         ).executeAsync();
     }
+/*
+
+    public void postPostLink(final Bitmap bitmap, String post, final String user, final String caption, final String message, final String userName, final int check){
+
+        showLoading(context);
+        Bundle params = new Bundle();
+
+        if(PrefManager.getInstance(context).isAnonymous()){
+            if(check==0) {
+                if (caption == null || caption.equals(""))
+                    params.putString("message", " A comment of " + userName + " ( https://web.facebook.com/" + user + " )" + " has been notified : " + message + "\n Visit post " + "https://web.facebook.com/" + post);
+                else
+                    params.putString("message", " A comment of " +
+                            userName + " ( https://web.facebook.com/" + user + " ) " + "has been notified : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://web.facebook.com/" + post);
+            }
+            else if(check ==5)
+            {
+                if(caption==null||caption.equals(""))
+                    params.putString("message", " A comment of "+userName+" ( https://twitter.com/"+user+" )"+" has been notified : "+message+"\n Visit post "+"https://twitter.com/"+post);
+                else
+                    params.putString("message", " A comment of "+
+                            userName+" ( https://twitter.com/"+user+" ) "+"has been notified : "+message+"\nNotifier's remarks : "+caption+" \n "+"Visit post "+"https://twitter.com/"+post);
+            }
+        }
+        else{
+            String[] arr = {User.getLoggedInUserInformation().id};
+            params.putStringArray("tags", arr);
+
+            if(check==0) {
+                if (caption == null || caption.equals(""))
+                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user + " )" + " : " + message + "\n Visit post " + "https://web.facebook.com/" + post);
+                else
+                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                            userName + " ( https://web.facebook.com/" + user + " ) " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://web.facebook.com/" + post);
+            }
+            else if(check ==5)
+            {
+                if(caption==null||caption.equals(""))
+                    params.putString("message", User.getLoggedInUserInformation().name +" ( https://twitter.com/"+User.getLoggedInUserInformation().id+ " ) has notified a comment of "+userName+" ( https://twitter.com/"+user+" )"+" : "+message+"\n Visit post "+"https://twitter.com/"+post);
+                else
+                    params.putString("message", User.getLoggedInUserInformation().name +" ( https://twitter.com/"+User.getLoggedInUserInformation().id+ " ) has notified a comment of "+
+                            userName+" ( https://twitter.com/"+user+" ) "+" : "+message+"\nNotifier's remarks : "+caption+" \n "+"Visit post "+"https://twitter.com/"+post);
+            }
+        }
+        ByteArrayOutputStream blob = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, blob);
+        byte[] bitmapdata = blob.toByteArray();
+        params.putByteArray("picture", bitmapdata);
+        params.putString("link", "https://www.google.com/");
+        new GraphRequest(
+                new AccessToken(MenuActivity.pageToken, AccessToken.getCurrentAccessToken().getApplicationId(), AccessToken.getCurrentAccessToken().getUserId(), AccessToken.getCurrentAccessToken().getPermissions(), AccessToken.getCurrentAccessToken().getDeclinedPermissions(), AccessToken.getCurrentAccessToken().getSource(), AccessToken.getCurrentAccessToken().getExpires(), AccessToken.getCurrentAccessToken().getLastRefresh()),
+                "/"+ MenuActivity.pageId+"/photos",
+                params,
+                HttpMethod.POST,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        if (response.getError() == null) {
+                            hideLoading();
+                            Toast.makeText(context, "Post notified successfully", Toast.LENGTH_LONG).show();
+
+                        } else {
+                            Bundle params = new Bundle();
+*/
+/*
+                            if(caption.equals("")||caption==null)
+                                params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following: \n Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message);
+                            else
+                                params.putString("caption", User.getLoggedInUserInformation().name+" ( https://web.facebook.com/"+User.getLoggedInUserInformation().id+ " ) has reported the following:\n"+
+                                        caption+"\n" + "Offender Details -> "+userName+" ( https://web.facebook.com/"+user+" ) "+" \n Comment -> "+message);
+*//*
+
+                            if(PrefManager.getInstance(context).isAnonymous())
+                            {
+                                if(check==0) {
+                                    if (caption == null || caption.equals(""))
+                                        params.putString("message", " A comment of " + userName + " ( https://web.facebook.com/" + user + " )" + " has been notified : " + message);
+                                    else
+                                        params.putString("message", " A comment of " +
+                                                userName + " ( https://web.facebook.com/" + user + " ) " + "has been notified : " + message + "\nNotifier's remarks : " + caption);
+                                }
+                                else if(check==5)
+                                {
+                                    if (caption == null || caption.equals(""))
+                                        params.putString("message", " A comment of " + userName + " ( https://twitter.com/" + user + " )" + " has been notified : " + message);
+                                    else
+                                        params.putString("message",  " A comment of " +
+                                                userName + " ( https://twitter.com/" + user + " ) " + "has been notified : " + message + "\nNotifier's remarks : " + caption);
+                                }}
+                            else
+                            {
+                                String[] arr = {User.getLoggedInUserInformation().id};
+                                params.putStringArray("tags", arr);
+                                if(check==0) {
+                                    if (caption == null || caption.equals(""))
+                                        params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://web.facebook.com/" + user + " )" + " : " + message);
+                                    else
+                                        params.putString("message", User.getLoggedInUserInformation().name + " ( https://web.facebook.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                                userName + " ( https://web.facebook.com/" + user + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                                }
+                                else if(check==5)
+                                {
+                                    if (caption == null || caption.equals(""))
+                                        params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/" + user + " )" + " : " + message);
+                                    else
+                                        params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                                userName + " ( https://twitter.com/" + user + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                                }
+                            }
+//                            params.putString("link", "https://web.facebook.com/" + User.getLoggedInUserInformation().name);
+
+                            ByteArrayOutputStream blob = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, blob);
+                            byte[] bitmapdata = blob.toByteArray();
+                            params.putByteArray("picture", bitmapdata);
+
+                            new GraphRequest(
+                                    new AccessToken(MenuActivity.pageToken, AccessToken.getCurrentAccessToken().getApplicationId(), AccessToken.getCurrentAccessToken().getUserId(), AccessToken.getCurrentAccessToken().getPermissions(), AccessToken.getCurrentAccessToken().getDeclinedPermissions(), AccessToken.getCurrentAccessToken().getSource(), AccessToken.getCurrentAccessToken().getExpires(), AccessToken.getCurrentAccessToken().getLastRefresh()),
+                                    "/"+MenuActivity.pageId+"/photos",
+                                    params,
+                                    HttpMethod.POST,
+                                    new GraphRequest.Callback() {
+                                        public void onCompleted(GraphResponse response) {
+                                            if (response.getError() == null) {
+                                                hideLoading();
+                                                Toast.makeText(context, "Post notified successfully", Toast.LENGTH_LONG).show();
+                                            } else {
+                                                hideLoading();
+                                                Toast.makeText(context, "Unable to notify Post, Please try again", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    }
+                            ).executeAsync();
+                        }
+                    }
+                }
+        ).executeAsync();
+    }
+*/
 
     public void showLoading(Context context) {
         progressDialog = new ProgressDialog(context);

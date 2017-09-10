@@ -91,7 +91,7 @@ public class UploadImages extends AppCompatActivity {
         grid = (GridView) findViewById(R.id.grid);
 
         imageId = new ArrayList<Images>();
-        File file = new File(Environment.getExternalStorageDirectory(), "Muaavin");
+        File file = new File(Environment.getExternalStorageDirectory(), "Muavin");
         if (file.exists() && file.isDirectory()) {
             listFile = file.listFiles();
             if (listFile.length > 0) {
@@ -327,6 +327,7 @@ public class UploadImages extends AppCompatActivity {
                     getFragmentManager().popBackStack();
                 } else super.onBackPressed();
                 break;
+
             default:
                 break;
 
@@ -394,7 +395,7 @@ public class UploadImages extends AppCompatActivity {
 
     void populateGrid() {
         imageId = new ArrayList<Images>();
-        File file = new File(Environment.getExternalStorageDirectory(), "Muaavin");
+        File file = new File(Environment.getExternalStorageDirectory(), "Muavin");
         if (file.exists() && file.isDirectory()) {
             listFile = file.listFiles();
             if (listFile.length > 0) {

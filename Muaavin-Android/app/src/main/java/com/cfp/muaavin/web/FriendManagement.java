@@ -14,7 +14,7 @@ public class FriendManagement  {
 
     //static String[] group1  =  {"A","B","C","All"};
     public static String[] group1 = new String[]{"Sexual harassment", "Incitement to violence","Hate speech","All of the above"};
-    public static String[] groupInfo = new String[]{"Sexual harassment Info", "Incitement to violence Info","Hate speech Info","All of the above Info"};
+    public static String[] groupInfo = new String[]{"*Sexual Harassment* includes all kinds of unwanted sexual advances, comments and associations.", "*Incitement to Violence* is speech that directly calls for violent actions against an individual or group.","*Hate speech* is speech that attacks people on basis of personal attributes like community and gender etc.","All of the above Info"};
     Context context;
     DataLoaderHelper controller;
 

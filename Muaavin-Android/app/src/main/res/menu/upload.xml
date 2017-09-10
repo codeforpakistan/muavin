@@ -5,14 +5,12 @@
     android:layout_height="wrap_content">
 
     <item android:id="@+id/menu_item_upload"
-        android:icon="@drawable/com_facebook_button_send_icon"
-        android:title="Send"
+        android:title="Next"
         android:layout_width="wrap_content"
         app:showAsAction="always"
         android:layout_height="wrap_content" />
 
     <item android:id="@+id/menu_item_delete"
-        android:icon="@android:drawable/ic_menu_delete"
         android:title="Delete"
         android:layout_width="wrap_content"
         app:showAsAction="always"

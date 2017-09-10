@@ -287,6 +287,10 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
                 Intent intent = new Intent(MenuActivity.this, FeedbackActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.about:
+                Intent intnt = new Intent(MenuActivity.this, AboutActivity.class);
+                startActivity(intnt);
+                break;
 
             case R.id.menu_item_new_quote:
 /*
@@ -316,9 +320,9 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
 */
 
                  LogOut();
-                Intent intnt = new Intent(MenuActivity.this, FacebookLoginActivity.class);
-                intnt.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intnt);
+                Intent intnt1 = new Intent(MenuActivity.this, FacebookLoginActivity.class);
+                intnt1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intnt1);
                 break;
             case android.R.id.home:
                 if (getFragmentManager().getBackStackEntryCount() > 0) {
@@ -374,15 +378,15 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
     public void showDialog(Context context)
     {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
-        builder.setTitle("Muaavin");
+        builder.setTitle("Muavin");
 
         //String.valueOf(AccessToken.getCurrentAccessToken().getUserId()
         if(User.user_authentication == false) {
             int days = 7-Integer.parseInt(User.blockDate);
-            builder.setMessage("Welcome to Muaavin!!! \n Your account is currently blocked due to some suspicious activities. It would be unblocked after "+ days + " days.");
+            builder.setMessage("Welcome to Muavin!!! \n Your account is currently blocked due to some suspicious activities. It would be unblocked after "+ days + " days.");
 
         }            else
-        builder.setMessage("Welcome to Muaavin!!! \n Enabling victims and witnesses of online harassment to instantly notify incidents to a trusted network of friends/allies.");
+        builder.setMessage("Welcome to Muavin!!! \n Enabling victims and witnesses of online harassment to instantly notify incidents to a trusted network of friends/allies.");
         builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
@@ -520,13 +524,13 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
 
         try {
             // image naming and path  to include sd card  appending name you choose for file
-            String path = Environment.getExternalStorageDirectory().toString() + "/Muaavin";
+            String path = Environment.getExternalStorageDirectory().toString() + "/Muavin";
             File f = new File(path);
             if(f.exists()){}
                 else
             f.mkdir();
 
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/Muaavin/" + now + ".jpg";
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/Muavin/" + now + ".jpg";
 
             // create bitmap screen capture
             View v1 = getWindow().getDecorView().getRootView();

@@ -12,7 +12,7 @@
         android:layout_width="fill_parent"
         android:textAlignment="center"
         android:gravity="center_horizontal"
-        android:text="Muaavin"
+        android:text="Muavin"
         android:textSize="25dp"
         android:visibility="gone"
         android:background="@color/barColor"

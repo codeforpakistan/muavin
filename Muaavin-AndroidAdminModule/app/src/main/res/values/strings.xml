@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Muaavin Admin</string>
+    <string name="app_name">Muavin Admin</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_users_list_view">Muaavin Users</string>
-    <string name="title_activity_menu">Muaavin Admin</string>
+    <string name="title_activity_users_list_view">Muavin Users</string>
+    <string name="title_activity_menu">Muavin Admin</string>
     <string name="title_activity_post_list_view">Reported Posts</string>
     <string name="title_activity_highlighted_posts">HighlightedPostsActivity</string>
 </resources>
