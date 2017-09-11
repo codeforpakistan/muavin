@@ -236,10 +236,10 @@ public class Tweet_ListView extends Fragment implements TweetsAsynchronousRespon
             else if(check ==5)
             {
                 if(caption==null||caption.equals(""))
-                    params.putString("message", " A comment of "+userName+" ( https://twitter.com/"+user+" )"+" has been notified : "+message+"\n Visit post "+"https://twitter.com/"+post);
+                    params.putString("message", " A comment of "+userName+" ( https://twitter.com/intent/user?user_id="+user+" )"+" has been notified : "+message+"\n Visit post "+"https://twitter.com/muavin/status/"+post);
                 else
                     params.putString("message", " A comment of "+
-                            userName+" ( https://twitter.com/"+user+" ) "+"has been notified : "+message+"\nNotifier's remarks : "+caption+" \n "+"Visit post "+"https://twitter.com/"+post);
+                            userName+" ( https://twitter.com/intent/user?user_id="+user+" ) "+"has been notified : "+message+"\nNotifier's remarks : "+caption+" \n "+"Visit post "+"https://twitter.com/muavin/status/"+post);
             }
         }
         else{
@@ -254,10 +254,10 @@ public class Tweet_ListView extends Fragment implements TweetsAsynchronousRespon
             else if(check ==5)
             {
                 if(caption==null||caption.equals(""))
-                    params.putString("message", User.getLoggedInUserInformation().name +" ( https://twitter.com/"+User.getLoggedInUserInformation().id+ " ) has notified a comment of "+userName+" ( https://twitter.com/"+user+" )"+" : "+message+"\n Visit post "+"https://twitter.com/"+post);
+                    params.putString("message", User.getLoggedInUserInformation().name +" ( https://twitter.com/intent/user?user_id="+User.getLoggedInUserInformation().id+ " ) has notified a comment of "+userName+" ( https://twitter.com/intent/user?user_id="+user+" )"+" : "+message+"\n Visit post "+"https://twitter.com/muavin/status/"+post);
                 else
-                    params.putString("message", User.getLoggedInUserInformation().name +" ( https://twitter.com/"+User.getLoggedInUserInformation().id+ " ) has notified a comment of "+
-                            userName+" ( https://twitter.com/"+user+" ) "+" : "+message+"\nNotifier's remarks : "+caption+" \n "+"Visit post "+"https://twitter.com/"+post);
+                    params.putString("message", User.getLoggedInUserInformation().name +" ( https://twitter.com/intent/user?user_id="+User.getLoggedInUserInformation().id+ " ) has notified a comment of "+
+                            userName+" ( https://twitter.com/intent/user?user_id="+user+" ) "+" : "+message+"\nNotifier's remarks : "+caption+" \n "+"Visit post "+"https://twitter.com/muavin/status/"+post);
             }
         }
         ByteArrayOutputStream blob = new ByteArrayOutputStream();
@@ -296,10 +296,10 @@ public class Tweet_ListView extends Fragment implements TweetsAsynchronousRespon
                                 else if(check==5)
                                 {
                                     if (caption == null || caption.equals(""))
-                                        params.putString("message", " A comment of " + userName + " ( https://twitter.com/" + user + " )" + " has been notified : " + message);
+                                        params.putString("message", " A comment of " + userName + " ( https://twitter.com/intent/user?user_id=" + user + " )" + " has been notified : " + message);
                                     else
                                         params.putString("message",  " A comment of " +
-                                                userName + " ( https://twitter.com/" + user + " ) " + "has been notified : " + message + "\nNotifier's remarks : " + caption);
+                                                userName + " ( https://twitter.com/intent/user?user_id=" + user + " ) " + "has been notified : " + message + "\nNotifier's remarks : " + caption);
                                 }}
                             else
                             {
@@ -314,10 +314,10 @@ public class Tweet_ListView extends Fragment implements TweetsAsynchronousRespon
                                 else if(check==5)
                                 {
                                     if (caption == null || caption.equals(""))
-                                        params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/" + user + " )" + " : " + message);
+                                        params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/intent/user?user_id=" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/intent/user?user_id=" + user + " )" + " : " + message);
                                     else
-                                        params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
-                                                userName + " ( https://twitter.com/" + user + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                                        params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/intent/user?user_id=" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                                userName + " ( https://twitter.com/intent/user?user_id=" + user + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
                                 }
                             }
                             ByteArrayOutputStream blob = new ByteArrayOutputStream();

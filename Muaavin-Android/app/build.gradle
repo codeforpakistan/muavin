@@ -25,7 +25,9 @@ android {
         exclude 'META-INF/NOTICE.txt'
 
     }
-
+    lintOptions{
+        checkReleaseBuilds false
+    }
 
     defaultConfig {
         applicationId "com.cfp.muaavin.ui"
@@ -36,9 +38,7 @@ android {
     }
     buildTypes {
 
-        debug {
-            debuggable true
-        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

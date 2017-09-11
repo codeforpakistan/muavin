@@ -19,5 +19,6 @@
     <string name="title_activity_qrcode">Muavin</string>
     <string name="title_activity_feedback">Feedback and Rating</string>
     <string name="title_activity_abount">Best Practices</string>
+    <string name="title_activity_disclaimer">Disclaimer</string>
 
 </resources>

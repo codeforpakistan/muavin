@@ -4,6 +4,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.webkit.WebView;
 
 public class AboutActivity extends ActionBarActivity {
@@ -11,13 +14,15 @@ public class AboutActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.appTheme)/*Color.parseColor("#3b5998")*/);
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         setContentView(R.layout.activity_about);
 
         String htmlText = "<html><body style=\"text-align:justify\"> <font size=\"3\" color=\"#000000\" face=\"sans-serif\"> %s </font> </body></Html>";
         String aboutData = "<b>Muavin, community standards</b> <br><br>" +
-                "Muavin is a community based application and depends on the support of its community members to ensure that it operates as a safe, secure and friendly space. We welcome you to the Muavin community, as a community member please keep these simple guidelines in mind: \n" +
+                "Muavin is a community based application and depends on the support of its community members to ensure that it operates as a safe, secure and friendly space. We welcome you to the Muavin community, as a community member please keep these simple guidelines in mind: " +
                 "<br>" +
                 "<br><b>Do</b> <br>" +
                 "Respect each other – The whole point of this community is to create an alliance among people who can network together to fight back against online violence. This is a shared space and mutual respect is an essential factor. <br>" +
@@ -42,4 +47,30 @@ public class AboutActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_web, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getFragmentManager().getBackStackEntryCount() > 0) {
+                    getFragmentManager().popBackStack();
+                } else super.onBackPressed();
+                break;
+            default:
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +29,8 @@ public class FeedbackActivity extends ActionBarActivity implements FeedbackInter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.appTheme)/*Color.parseColor("#3b5998")*/);
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
 
@@ -68,5 +73,30 @@ public class FeedbackActivity extends ActionBarActivity implements FeedbackInter
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_web, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getFragmentManager().getBackStackEntryCount() > 0) {
+                    getFragmentManager().popBackStack();
+                } else super.onBackPressed();
+                break;
+            default:
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

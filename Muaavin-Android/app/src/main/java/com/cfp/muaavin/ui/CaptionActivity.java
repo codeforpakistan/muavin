@@ -210,10 +210,10 @@ public class CaptionActivity extends AppCompatActivity {
             }
             else if(check==5) {
                 if (caption == null || caption.equals(""))
-                    params.putString("caption", " A comment of " + userName + " ( https://twitter.com/" + user_profile + " ) has been notified" + " : " + message);
+                    params.putString("caption", " A comment of " + userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " ) has been notified" + " : " + message);
                 else
                     params.putString("caption", " A comment of " +
-                            userName + " ( https://twitter.com/" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
+                            userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
             }
             }
             else{
@@ -226,10 +226,10 @@ public class CaptionActivity extends AppCompatActivity {
                 }
                 else if(check==5) {
                     if (caption == null || caption.equals(""))
-                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/" + user_profile + " )" + " : " + message);
+                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://twitter.com/intent/user?user_id=" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " )" + " : " + message);
                     else
-                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
-                                userName + " ( https://twitter.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                        params.putString("caption", User.getLoggedInUserInformation().name + " ( https://twitter.com/intent/user?user_id=" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
                 }
             }
                 Bitmap image = BitmapFactory.decodeFile(images.get(i).getPath());
@@ -286,10 +286,10 @@ public class CaptionActivity extends AppCompatActivity {
                             userName + " ( https://www.facebook.com/app_scoped_user_id/" + user_profile + " ) has been notified " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "http://www.facebook.com/"+ids[0]+"/posts/"+ids[1]);
             } else if (check == 5) {
                 if (caption == null || caption.equals(""))
-                    params.putString("message", " A comment of " + userName + " ( https://twitter.com/" + user_profile + " ) has been notified" + " : " + message + "\n Visit post " + "https://twitter.com/" + post_url);
+                    params.putString("message", " A comment of " + userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " ) has been notified" + " : " + message + "\n Visit post " + "https://twitter.com/muavin/status/" + post_url);
                 else
                     params.putString("message", " A comment of " +
-                            userName + " ( https://twitter.com/" + user_profile + " ) has been notified " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://twitter.com/" + post_url);
+                            userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " ) has been notified " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://twitter.com/muavin/status/" + post_url);
             }
         }
         else
@@ -306,10 +306,10 @@ public class CaptionActivity extends AppCompatActivity {
             }
             else if(check==5) {
                 if (caption == null || caption.equals(""))
-                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/" + user_profile + " )" + " : " + message + "\n Visit post " + "https://twitter.com/" + post_url);
+                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/intent/user?user_id=" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " )" + " : " + message + "\n Visit post " + "https://twitter.com/muavin/status/" + post_url);
                 else
-                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
-                            userName + " ( https://twitter.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://twitter.com/" + post_url);
+                    params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/intent/user?user_id=" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                            userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption + " \n " + "Visit post " + "https://twitter.com/muavin/status/" + post_url);
             }
         }
 
@@ -359,10 +359,10 @@ public class CaptionActivity extends AppCompatActivity {
                                     else if(check ==5)
                                     {
                                         if (caption == null || caption.equals(""))
-                                            params.putString("message", " A comment of " + userName + " ( https://twitter.com/" + user_profile + " ) has been notified" + " : " + message);
+                                            params.putString("message", " A comment of " + userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " ) has been notified" + " : " + message);
                                         else
                                             params.putString("message", " A comment of " +
-                                                    userName + " ( https://twitter.com/" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
+                                                    userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " ) has been notified" + " : " + message + "\nNotifier's remarks : " + caption);
                                     }}
                                     else
                                     {
@@ -379,10 +379,10 @@ public class CaptionActivity extends AppCompatActivity {
                                         else if(check ==5)
                                         {
                                             if (caption == null || caption.equals(""))
-                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/" + user_profile + " )" + " : " + message);
+                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/intent/user?user_id=" + User.getLoggedInUserInformation().id + " ) has notified a comment of " + userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " )" + " : " + message);
                                             else
-                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
-                                                        userName + " ( https://twitter.com/" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
+                                                params.putString("message", User.getLoggedInUserInformation().name + " ( https://twitter.com/intent/user?user_id=" + User.getLoggedInUserInformation().id + " ) has notified a comment of " +
+                                                        userName + " ( https://twitter.com/intent/user?user_id=" + user_profile + " ) " + " : " + message + "\nNotifier's remarks : " + caption);
                                     }}
                                     try {
                                         int counter = 0;
