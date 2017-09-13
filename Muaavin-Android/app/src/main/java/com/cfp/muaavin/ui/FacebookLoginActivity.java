@@ -125,7 +125,7 @@ public class FacebookLoginActivity extends ActionBarActivity  {
 
                          @Override
                          public void onError(FacebookException exception) {
-                             Toast.makeText(FacebookLoginActivity.this, "Error", Toast.LENGTH_LONG).show();
+                             Toast.makeText(FacebookLoginActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
                          } });
 
                         }

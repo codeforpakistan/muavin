@@ -71,7 +71,6 @@ public class PostsLoadAsyncTask extends AsyncTask<ArrayList<Post> , Void, ArrayL
         facebookUtil = new FacebookUtil();
         if(!isClipboardData)
         {
-            
             Posts = getAllPosts(Posts); //  Get All Posts
             while ((FacebookUtil.isUserPresent == false) && (nextResultsRequests != null))
             {
