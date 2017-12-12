@@ -3,7 +3,7 @@ package com.cfp.muaavin.ui;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,7 +19,7 @@ import com.cfp.muaavin.ui.R;
 import com.cfp.muaavin.web.WebHttpGetReq;
 import com.facebook.Profile;
 
-public class FeedbackActivity extends ActionBarActivity implements FeedbackInterface {
+public class FeedbackActivity extends AppCompatActivity implements FeedbackInterface {
 
     EditText etcomments = null;
     Button send;

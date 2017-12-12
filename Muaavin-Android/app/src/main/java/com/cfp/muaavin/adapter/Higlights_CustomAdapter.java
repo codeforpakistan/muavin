@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cfp.muaavin.helper.UrlHelper;
 import com.cfp.muaavin.ui.R;
 import com.cfp.muaavin.ui.WebServiceActivity;
 import com.cfp.muaavin.web.ImageSelectorAsyncTask;
@@ -85,12 +86,17 @@ public class Higlights_CustomAdapter extends BaseAdapter {
 
         holder.text_view.setText(" "+ infringing_friends.get(position).name);
 
+        if(infringing_friends.get(position).profile_url.contains("facebook")){
+            holder.userProfile.setVisibility(View.VISIBLE);
+        }
+        else
+            holder.userProfile.setVisibility(View.GONE);
 
         holder.userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                showUserProfileOnBrowser(infringing_friends.get(position).profile_url);
+                UrlHelper.showUserProfileOnBrowser(infringing_friends.get(position).profile_url,context);
 
             }
         });

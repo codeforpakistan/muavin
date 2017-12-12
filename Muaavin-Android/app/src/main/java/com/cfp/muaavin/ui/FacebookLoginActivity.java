@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +32,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 
-public class FacebookLoginActivity extends ActionBarActivity  {
+public class FacebookLoginActivity extends AppCompatActivity  {
 
         TextView textview;
         Button loginButton;
