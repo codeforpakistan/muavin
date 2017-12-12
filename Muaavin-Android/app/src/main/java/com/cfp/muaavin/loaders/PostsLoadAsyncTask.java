@@ -99,7 +99,7 @@ public class PostsLoadAsyncTask extends AsyncTask<ArrayList<Post> , Void, ArrayL
     {
         if(count == 0) {
             Bundle params = new Bundle();
-            params.putString("limit","30");
+            params.putString("limit","10");
             params.putString("fields", "from{id,name,picture},message,full_picture,story,created_time,picture,comments.summary(true){from{id,name,picture},id,message,comments{from{id,name,picture},id,message}}");//,comments.summary(true)
             new GraphRequest(AccessToken.getCurrentAccessToken(),
             "/"+Post_ID+"/feed",
@@ -114,6 +114,7 @@ public class PostsLoadAsyncTask extends AsyncTask<ArrayList<Post> , Void, ArrayL
             } else {Error = "Network Error";}
 
             }
+
             }).executeAndWait();
 
 

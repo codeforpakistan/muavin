@@ -103,6 +103,7 @@ public class Highlighted_CustomAdapter extends BaseAdapter {
         TextView FeedBack;
 
         LinearLayout linearLayout3;
+        TextView category;
 
         RelativeLayout title;
     }
@@ -121,7 +122,9 @@ public class Highlighted_CustomAdapter extends BaseAdapter {
             final String post_message1 =  Post_Details .get(0).post_Detail;
             String infringingUserPic =  UrlHelper.getDecodedUrl(Post_Details .get(0).infringing_user_profile_pic);
             holder.text_view.setText(post_message1);
-            if(Post_Details.get(0).IsTwitterPost)
+        holder.category.setText(getCategory(Post_Details .get(0).groupName));
+
+        if(Post_Details.get(0).IsTwitterPost)
             {
               holder.title.setBackgroundColor(Color.parseColor("#00BFFF"));
               holder.PostHeading.setBackgroundColor(Color.parseColor("#00BFFF"));
@@ -284,7 +287,7 @@ public class Highlighted_CustomAdapter extends BaseAdapter {
         holder.ProfilePic = (ImageView) rowView.findViewById(R.id.ProfilePic);
         holder.FeedBack = (TextView) rowView.findViewById(R.id.FeedBack);
         holder.title = (RelativeLayout) rowView.findViewById(R.id.title);
-
+        holder.category = (TextView)rowView.findViewById(R.id.category);
         return holder;
     }
 
@@ -375,5 +378,20 @@ public class Highlighted_CustomAdapter extends BaseAdapter {
             }
         });
         builder.show();
+    }
+    public String getCategory(String cat){
+        if(cat!=null) {
+            if (cat.equals("A"))
+                return "Sexual harassment";
+            else if (cat.equals("B"))
+                return "Incitement to violence";
+            else if (cat.equals("C"))
+                return "Hate speech";
+            else
+                return "All of the above";
+        }else
+        {
+            return "";
+        }
     }
 }

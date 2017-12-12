@@ -56,20 +56,21 @@
         android:background="@color/appTheme"
         android:textColor="#FFF"
         android:onClick="blockUser"
-        android:layout_above="@+id/delete"
         android:layout_alignLeft="@+id/delete"
         android:layout_alignStart="@+id/delete"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginTop="100dp"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Reported Posts"
+        android:text="View Notified Posts"
         android:id="@+id/delete"
         android:onClick="deletePost"
         android:background="@color/appTheme"
         android:textColor="#FFF"
         android:width="200dp"
+        android:visibility="gone"
         android:layout_above="@+id/ViewReportedUser"
         android:layout_alignLeft="@+id/ViewReportedUser"
         android:layout_alignStart="@+id/ViewReportedUser" />
@@ -77,7 +78,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Reported Users"
+        android:text="View Notified Users"
         android:id="@+id/ViewReportedUser"
         android:background="@color/appTheme"
         android:textColor="#FFF"
@@ -85,7 +86,7 @@
         android:layout_marginBottom="20dp"
         android:width="200dp"
         android:onClick="viewReportedUser"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/Block"
         android:layout_centerHorizontal="true" />
 
     <Button

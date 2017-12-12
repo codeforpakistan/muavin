@@ -21,6 +21,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -122,7 +123,17 @@ public class MenuActivity extends AppCompatActivity implements UserInterface, Ui
 
         setContentView(R.layout.activity_menu);
 
-        //Fragment Mainfragment = new Fragment();
+    /*    byte[] sha1 = {
+*//*
+                0x65, 0x5D, 0x66, (byte)0xA1, (byte)0xC9, 0x31, 0x85, (byte)0xAB, (byte)0x92, (byte)0xC6, (byte)0xA2, 0x60, 0x87, 0x5B, 0x1A, (byte)0xDA, 0x45, 0x6E, (byte)0x97, (byte)0xEA
+*//*
+                //(byte)0xFA,0x2A,0x6F,0x6E,0x59,0x6C,0x2A,(byte)0xCB,(byte)0xA5,0x5D,0x2A,(byte)0xFC,0x56,(byte)0xA8,0x11,(byte)0xA5,0x4D,(byte)0x84,0x00,(byte)0xAF
+                (byte)0xAC,0x38,0x26,0x5B,(byte)0xC9,0x40,(byte)0xD1,(byte)0x8D,(byte)0x97,0x5C,(byte)0xA3,(byte)0xE5,(byte)0xC1,(byte)0xB1,(byte)0x91,(byte)0xE2,0x7D,0x74,0x75,(byte)0x91
+        };
+hash
+        String hash = Base64.encodeToString(sha1, Base64.NO_WRAP);
+        System.out.println("keyhashGooglePlaySignIn:"+ hash);
+    */    //Fragment Mainfragment = new Fragment();
         //getFragmentManager().beginTransaction().replace(R.id.fragment_container,  Mainfragment).commit();
         bottomNavigationBar = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
         bottomNavigationBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

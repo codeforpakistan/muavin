@@ -181,12 +181,13 @@ public class WebHttpGetReq extends AsyncTask<String, Void, Void> {
 
            if(check == 0){
                DialogBox.showDialog(context,"Notify on Facebook",Content, FacebookUtil.ReportPostDetail.post_id,FacebookUtil.ReportPostDetail.infringing_user_id,FacebookUtil.ReportPostDetail.comment,FacebookUtil.ReportPostDetail.infringing_user_name,check, true);
+//               DialogBox.showErrorDialog(context,"Message",Content);
                return;
            }
            else if(check == 5){
                DialogBox.showDialog(context,"Notify on Facebook",Content, TwitterUtil.ReportTwitterDetail.post_id,TwitterUtil.ReportTwitterDetail.infringing_user_id,TwitterUtil.ReportTwitterDetail.post_Detail,TwitterUtil.ReportTwitterDetail.infringing_user_name,check, false);
 
-//               DialogBox.showErrorDialog(context,"Message",Content);
+  //             DialogBox.showErrorDialog(context,"Message",Content);
                return;
            }
            else if((check == 1)||(check == 9) ||(check == 7)){

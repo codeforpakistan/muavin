@@ -86,6 +86,7 @@ import java.util.HashMap;
         if(jsonChildNode.has("FeedBackMessage")) { PostDetailObj.FeedBackMessage = jsonChildNode.optString("FeedBackMessage"); }
         if(jsonChildNode.has("IsComment")) { PostDetailObj.IsComment = jsonChildNode.optBoolean("IsComment"); }
         if(jsonChildNode.has("count")) { PostDetailObj.count = jsonChildNode.optInt("count"); }
+        if(jsonChildNode.has("Group_Name")) { PostDetailObj.groupName = jsonChildNode.optString("Group_Name"); }
         if(PostDetailObj.IsTwitterPost)  PostDetailObj.PostUrl = "https://twitter.com/"+PostDetailObj.infringing_user_id+"/status/"+PostDetailObj.post_id.split("-")[0];
         else  PostDetailObj.PostUrl = "https://www.facebook.com/"+PostDetailObj.post_id.split("-")[0];
 

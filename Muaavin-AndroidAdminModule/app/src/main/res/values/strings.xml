@@ -7,4 +7,5 @@
     <string name="title_activity_menu">Muavin Admin</string>
     <string name="title_activity_post_list_view">Reported Posts</string>
     <string name="title_activity_highlighted_posts">HighlightedPostsActivity</string>
+    <string name="title_activity_qrcode_main">QRCodeMainActivity</string>
 </resources>

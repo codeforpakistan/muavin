@@ -117,14 +117,14 @@ public class Browser_CustomAdapter extends BaseAdapter {
         TextView total_unlikes;
 
         ImageButton ThumbDownButton;
-        ImageButton reportButton;
+        Button reportButton;
 
         TextView   PostHeading;
 
         TextView   CommentHeading;
 
         TextView FeedBack;
-
+        TextView category;
         LinearLayout linearLayout3;
 
         RelativeLayout title;
@@ -144,13 +144,15 @@ public class Browser_CustomAdapter extends BaseAdapter {
             final String post_message1 =  Post_Details .get(0).post_Detail;
             String infringingUserPic =  UrlHelper.getDecodedUrl(Post_Details .get(0).infringing_user_profile_pic);
             holder.text_view.setText(post_message1);
+            holder.reportButton.setText(Post_Details .get(0).groupName);
+            holder.category.setText(getCategory(Post_Details .get(0).groupName));
             if(Post_Details.get(0).IsTwitterPost)
             {
               holder.title.setBackgroundColor(Color.parseColor("#00BFFF"));
               holder.PostHeading.setBackgroundColor(Color.parseColor("#00BFFF"));
               holder.PostHeading.setText("Tweet : "+Post_Details.get(0).infringing_user_name);
               holder.FeedBack.setBackgroundColor(Color.parseColor("#87CEFA"));
-                holder.reportButton.setVisibility(View.GONE);
+
             }
             else if(Post_Details.get(0).IsComment)
             {
@@ -300,14 +302,14 @@ public class Browser_CustomAdapter extends BaseAdapter {
         holder.connectionText =(TextView)rowView.findViewById(R.id.Textbox2);
         holder.total_unlikes = (TextView)rowView.findViewById(R.id.total_unlikes);
         holder.ThumbDownButton = (ImageButton)rowView.findViewById(R.id.image_button);
-        holder.reportButton = (ImageButton)rowView.findViewById(R.id.report);
+        holder.reportButton = (Button)rowView.findViewById(R.id.report);
         holder.PostHeading = (TextView)rowView.findViewById(R.id.Textbox2);
         holder.CommentHeading = (TextView)rowView.findViewById(R.id.Textbox3);
         holder.linearLayout3 = (LinearLayout)rowView.findViewById(R.id.linear3);
         holder.ProfilePic = (ImageView) rowView.findViewById(R.id.ProfilePic);
         holder.FeedBack = (TextView) rowView.findViewById(R.id.FeedBack);
         holder.title = (RelativeLayout) rowView.findViewById(R.id.title);
-
+        holder.category = (TextView)rowView.findViewById(R.id.category);
         return holder;
     }
 
@@ -398,5 +400,21 @@ public class Browser_CustomAdapter extends BaseAdapter {
             }
         });
         builder.show();
+    }
+
+    public String getCategory(String cat){
+        if(cat!=null) {
+            if (cat.equals("A"))
+                return "Sexual harassment";
+            else if (cat.equals("B"))
+                return "Incitement to violence";
+            else if (cat.equals("C"))
+                return "Hate speech";
+            else
+                return "All of the above";
+        }else
+        {
+            return "";
+        }
     }
 }

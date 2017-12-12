@@ -36,7 +36,7 @@ public class UrlHelper {
         return imageUrl;
     }
 
-    public static void showDataOnBrowser(Context context ,String url)
+    /*public static void showDataOnBrowser(Context context ,String url)
     {
         try{
           context.getPackageManager().getPackageInfo("com.facebook.katana", 0);
@@ -45,8 +45,21 @@ public class UrlHelper {
         }
         Intent facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         context.startActivity(facebookIntent);
-    }
+    }*/
 
+
+    public static void showDataOnBrowser(Context context ,String url)
+    {
+
+        String id = url.substring(url.lastIndexOf("/")+1);
+
+        Intent intent = null;
+
+        String ids[] = id.split("_");
+        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/"+ids[0]+"/posts/"+ids[1]));
+        context.startActivity(intent);
+
+    }
     public static String getQueryFieldsFromURL(String url) // Will Return Post ID from URL
     {
         String post_id = "";

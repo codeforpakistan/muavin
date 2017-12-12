@@ -27,6 +27,7 @@ public class PostDetail implements Serializable {
     public  boolean IsTwitterPost;
     public  boolean IsComment;
     public  int count;
+    public  String groupName;
 
     public ArrayList<String> FeedBacks = new ArrayList<String>();
 

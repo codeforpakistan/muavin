@@ -12,22 +12,34 @@
         <activity
             android:name=".ui.MenuActivity"
             android:label="@string/title_activity_menu">
+<!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+-->
         </activity>
         <activity
             android:name=".ui.UsersListView"
-            android:label="@string/title_activity_users_list_view"></activity>
+            android:label="@string/title_activity_users_list_view" />
         <activity
             android:name=".ui.PostListView"
-            android:label="@string/title_activity_post_list_view"></activity>
+            android:label="@string/title_activity_post_list_view" />
         <activity
             android:name=".ui.HighlightedPostsActivity"
-            android:label="@string/title_activity_highlighted_posts"
-            ></activity>
+            android:label="@string/title_activity_highlighted_posts" />
+        <activity
+            android:name=".ui.QRCodeActivity"
+            android:label="@string/title_activity_menu"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

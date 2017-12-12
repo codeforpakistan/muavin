@@ -74,7 +74,7 @@ public class Users_CustomAdapter extends BaseAdapter {
         final Holder holder= getHolder(rowView);
         holder.userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { UrlHelper.showDataOnBrowser(context, result.get(position).profile_url); }
+            public void onClick(View v) { UrlHelper.showUserProfileOnBrowser(result.get(position).profile_url,context); }
         });
 
         holder.tv1.setText(" "+ result.get(position).name);

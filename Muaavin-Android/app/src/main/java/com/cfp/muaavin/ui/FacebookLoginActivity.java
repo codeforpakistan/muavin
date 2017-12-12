@@ -101,7 +101,13 @@ public class FacebookLoginActivity extends ActionBarActivity  {
                    }
                    else {
                         callbackManager = CallbackManager.Factory.create();
-                        LoginManager.getInstance().logInWithReadPermissions(FacebookLoginActivity.this, Arrays.asList("email", "user_status", "user_photos", "user_videos", "user_tagged_places", "user_actions.video", "user_posts", "user_friends", "public_profile", "read_page_mailboxes", "read_custom_friendlists" ,"pages_show_list"/*, "manage_pages", "publish_pages", "pages_show_list"*/));
+/*
+                        LoginManager.getInstance().logInWithReadPermissions(FacebookLoginActivity.this, Arrays.asList("email", "user_status", "user_photos", "user_videos", "user_tagged_places", "user_actions.video", "user_posts", "user_friends", "public_profile", "read_page_mailboxes", "read_custom_friendlists"
+));
+*/
+                       LoginManager.getInstance().logInWithReadPermissions(FacebookLoginActivity.this, Arrays.asList("email", /*"user_status", "user_photos", "user_videos", "user_tagged_places", "user_actions.video",*/ "user_posts", "user_friends", "public_profile"/*, "read_page_mailboxes", "read_custom_friendlists"*/
+                       ));
+
                         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
 
@@ -131,7 +137,7 @@ public class FacebookLoginActivity extends ActionBarActivity  {
                         }
                 }
             });
-            LoginManager.getInstance().logInWithPublishPermissions(FacebookLoginActivity.this, Arrays.asList("manage_pages,publish_pages,publish_actions"));
+//            LoginManager.getInstance().logInWithPublishPermissions(FacebookLoginActivity.this, Arrays.asList(/*"manage_pages","publish_pages",*//*"publish_actions"*/""));
     }
 
     @Override
