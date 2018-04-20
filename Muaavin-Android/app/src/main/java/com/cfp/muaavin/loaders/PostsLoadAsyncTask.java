@@ -206,24 +206,34 @@ public class PostsLoadAsyncTask extends AsyncTask<ArrayList<Post> , Void, ArrayL
         {
             JSONObject obj = data.optJSONObject(i);
             JSONObject  from = obj.optJSONObject("from");
-            JSONObject  replies = obj.optJSONObject("comments");
-            Comment comment = new Comment();
-            if(replies!=null)
-            if(replies.has("summary")) {comment.reply_count = replies.optJSONObject("summary").optInt("total_count");}
+            if(from!=null) {
+                JSONObject replies = obj.optJSONObject("comments");
+                Comment comment = new Comment();
+                if (replies != null)
+                    if (replies.has("summary")) {
+                        comment.reply_count = replies.optJSONObject("summary").optInt("total_count");
+                    }
 
-            if(isReply == 1){ comment.setComment(obj.optString("id"),parent_CommentID , from.optString("name"),post_id ,from.optString("id") ,from.optJSONObject("picture").optJSONObject("data").optString("url"), obj.optString("message"), 0 ); }
-            else { comment.setComment(obj.optString("id"),parent_CommentID , from.optString("name"),post_id ,from.optString("id") ,from.optJSONObject("picture").optJSONObject("data").optString("url"), obj.optString("message"),comment.reply_count ); }
+                if (isReply == 1) {
+                    comment.setComment(obj.optString("id"), parent_CommentID, from.optString("name"), post_id, from.optString("id"), from.optJSONObject("picture").optJSONObject("data").optString("url"), obj.optString("message"), 0);
+                } else {
+                    comment.setComment(obj.optString("id"), parent_CommentID, from.optString("name"), post_id, from.optString("id"), from.optJSONObject("picture").optJSONObject("data").optString("url"), obj.optString("message"), comment.reply_count);
+                }
 
-            if(!friendsIds.contains(comment.user_id)&&(!comment.user_id.equals(userId))&&(!FacebookUtil.BlockedUsersIds.contains(comment.user_id)))
-            {
-              friendsIds.add(comment.user_id);
-              User user = new User();
-              if(from.has("picture")) { user.profile_pic = from.optJSONObject("picture").optJSONObject("data").optString("url"); }
-              user.setUserInformation(comment.user_id,comment.name,user.profile_pic,"https://www.facebook.com/"+comment.user_id,"UnBlocked");
-              users.add(user);
+                if (!friendsIds.contains(comment.user_id) && (!comment.user_id.equals(userId)) && (!FacebookUtil.BlockedUsersIds.contains(comment.user_id))) {
+                    friendsIds.add(comment.user_id);
+                    User user = new User();
+                    if (from.has("picture")) {
+                        user.profile_pic = from.optJSONObject("picture").optJSONObject("data").optString("url");
+                    }
+                    user.setUserInformation(comment.user_id, comment.name, user.profile_pic, "https://www.facebook.com/" + comment.user_id, "UnBlocked");
+                    users.add(user);
+                }
+                if (isReply == 1) {
+                    comment.parent_comment_id = parent_CommentID;
+                }
+                comments.add(comment);
             }
-            if(isReply == 1) { comment.parent_comment_id = parent_CommentID; }
-            comments.add(comment);
         }
             return comments;
     }
