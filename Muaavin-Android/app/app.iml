@@ -135,6 +135,7 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-tasks-10.0.0" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:E.\Projects\muavin\Muaavin-Android\app\libs\apache-httpcomponents-httpcore.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.retrofit2:retrofit:2.1.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.koushikdutta.async:androidasync-2.2.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-base-10.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-media-compat-26.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.0@jar" level="project" />
@@ -148,6 +149,7 @@
     <orderEntry type="library" name="Gradle: com.journeyapps:zxing-android-embedded-3.4.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.zxing:core:3.2.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.6.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.koushikdutta.ion:ion-2.2.1" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:common:1.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-vector-drawable-26.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-core-ui-26.1.0" level="project" />

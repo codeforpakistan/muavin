@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/r1"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    android:background="@drawable/card_background_2">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardview"
+    <TextView
+        android:id="@+id/Textbox2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/cardview_radius"
-        app:cardBackgroundColor="@color/light_background"
-        app:cardUseCompatPadding="false">
+        android:background="@drawable/card_header_background"
+        android:backgroundTint="@color/barColor"
+        android:padding="5dp"
+        android:text=" Post "
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
 
-        <RelativeLayout
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/Textbox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/hello_world"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/Image_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="400px"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/Textbox2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_header_background"
-                android:backgroundTint="@color/barColor"
-                android:text=" Post "
-                android:padding="5dp"
-                android:textColor="#ffffff"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/Textbox1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/Textbox2"
-                android:layout_margin="10dp"
-                android:text="@string/hello_world"
-                android:textSize="15dp" />
-
-            <ImageView
-                android:id="@+id/Image_view"
-                android:layout_width="300px"
-                android:layout_height="300px"
-                android:layout_margin="5dp"
-                android:layout_below="@+id/Textbox1"
-                android:layout_centerInParent="true" />
-
-            <TextView
-                android:id="@+id/CommentHeading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/Image_view"
-                android:background="@drawable/card_footer_background"
-                android:backgroundTint="@color/barColor"
-                android:text=" Comments :"
-                android:padding="5dp"
-                android:textColor="#ffffff"
-                android:textSize="20dp" />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
+    <TextView
+        android:id="@+id/CommentHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/comment_title_background"
+        android:backgroundTint="@color/barColor"
+        android:padding="5dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:text=" Comments :"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp" />
 
     <LinearLayout
         android:id="@+id/r2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/cardview"
-        android:orientation="vertical" />
-
-
-</RelativeLayout>
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="6dp"/>
+</LinearLayout>

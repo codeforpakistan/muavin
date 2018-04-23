@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/tweet_background">
 
     <TextView android:text=" Tweet "
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/TweetHeading"
         android:textSize="20dp"
-        android:background="#00BFFF"
-        android:textColor="#ffffff"  />
+        android:padding="5dp"
+        android:background="@drawable/card_header_background"
+        android:backgroundTint="@color/tweetColor"
+        android:textColor="#ffffff"/>
 
-    <TextView android:text="@string/hello_world"
+    <TextView
+        android:id="@+id/Tweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Tweet"
-        android:textSize="15dp"
-        android:layout_below="@+id/TweetHeading"/>
-
+        android:layout_below="@+id/TweetHeading"
+        android:layout_marginTop="0dp"
+        android:padding="5dp"
+        android:text="@string/hello_world"
+        android:textSize="14dp" />
 
 </RelativeLayout>

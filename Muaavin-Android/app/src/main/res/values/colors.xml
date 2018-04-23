@@ -27,5 +27,7 @@
     <color name="opaque_red">#f00</color>
     <color name="light_background">#80d7d7d7</color>
     <color name="pink">#CD1F5C</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="tweetColor">#00BFFF</color>
 
 </resources>

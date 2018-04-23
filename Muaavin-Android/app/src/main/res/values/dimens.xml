@@ -5,4 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="cardview_radius">8dp</dimen>
+    <dimen name="commentview_radius">5dp</dimen>
 </resources>

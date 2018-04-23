@@ -4,18 +4,18 @@
     android:id="@+id/tweets_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#FFF"
+    android:background="@color/light_background"
     tools:context="com.cfp.muaavin.ui.Tweet_ListView">
 
     <ListView
         android:id="@+id/TweetList"
         android:layout_height="match_parent"
         android:layout_width="fill_parent"
-        android:layout_above="@+id/LoadTweets"/>
+        android:layout_above="@+id/LoadTweets"
+        android:divider="@color/transparent"
+        android:dividerHeight="20dp"
+        android:padding="10dp"
+        android:scrollbars="none"/>
 
     <Button
         android:id="@+id/LoadTweets"

@@ -2,7 +2,6 @@ package com.cfp.muaavin.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
@@ -20,7 +19,7 @@ import com.cfp.muaavin.helper.UrlHelper;
 import com.cfp.muaavin.ui.Post_ListView;
 import com.cfp.muaavin.ui.R;
 import com.cfp.muaavin.web.DialogBox;
-import com.cfp.muaavin.web.ImageSelectorAsyncTask;
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
@@ -94,12 +93,19 @@ public class Posts_CustomAdapter extends BaseAdapter {
 
         for (int i = 0; i < result.get(position).Comments.size(); i++) {
 
-            final TextView rowTextView = getRowTextView(result.get(position).Comments.get(i).message);
-            final TextView rowName = getRowTextViewName(result.get(position).Comments.get(i).name + ":");
+
+            final View rowLayout = ((Activity) context).getLayoutInflater().inflate(R.layout.comment_item, null, false);
+            final TextView rowTextView = rowLayout.findViewById(R.id.comment);
+            final TextView rowName = rowLayout.findViewById(R.id.name);
+            rowTextView.setText(result.get(position).Comments.get(i).message);
+            rowName.setText(result.get(position).Comments.get(i).name + ":");
+
+//            final TextView rowTextView = getRowTextView(result.get(position).Comments.get(i).message);
+//            final TextView rowName = getRowTextViewName(result.get(position).Comments.get(i).name + ":");
             final int num = i;
             if (result.get(position).Comments.get(i).message.equals(""))
                 continue; // if comment contains stckers
-            rowTextView.setOnClickListener(new View.OnClickListener() {
+            rowLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -113,8 +119,9 @@ public class Posts_CustomAdapter extends BaseAdapter {
                 }
             });
 
-            linear_layout.addView(rowName);
-            linear_layout.addView(rowTextView);
+            linear_layout.addView(rowLayout);
+//            linear_layout.addView(rowName);
+//            linear_layout.addView(rowTextView);
             // if((ClipBoardOption) ||(GroupPostOption))
             //  {
             for (int reply_index = 0; reply_index < result.get(position).Comments.get(i).replies.size(); reply_index++) {
@@ -122,9 +129,14 @@ public class Posts_CustomAdapter extends BaseAdapter {
                 if (result.get(position).Comments.get(num).replies.get(reply_index).message.equals(""))
                     continue; //if reply contains sticker
 
-                final TextView replyTextView = getReplyTextView(result.get(position).Comments.get(num).replies.get(index).message);
-                final TextView replyTextViewName = getReplyTextViewName(result.get(position).Comments.get(num).replies.get(index).name);
-                replyTextView.setOnClickListener(new View.OnClickListener() {
+                final View replyCommentLayout = ((Activity) context).getLayoutInflater().inflate(R.layout.reply_comment_item, null, false);
+                final TextView replyTextView = replyCommentLayout.findViewById(R.id.comment);
+                final TextView replyTextViewName = replyCommentLayout.findViewById(R.id.name);
+                replyTextView.setText(result.get(position).Comments.get(num).replies.get(index).message);
+                replyTextViewName.setText(result.get(position).Comments.get(num).replies.get(index).name + ":");
+//                final TextView replyTextView = getReplyTextView(result.get(position).Comments.get(num).replies.get(index).message);
+//                final TextView replyTextViewName = getReplyTextViewName(result.get(position).Comments.get(num).replies.get(index).name);
+                replyCommentLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -136,8 +148,9 @@ public class Posts_CustomAdapter extends BaseAdapter {
                         DialogBox.ShowDialogBOx3(context, "Select Group ", group, 0, user_signed_inID, null, null, false);
                     }
                 });
-                linear_layout.addView(replyTextViewName);
-                linear_layout.addView(replyTextView);
+//                linear_layout.addView(replyTextViewName);
+//                linear_layout.addView(replyTextView);
+                linear_layout.addView(replyCommentLayout);
             }
             //}
         }
@@ -158,29 +171,52 @@ public class Posts_CustomAdapter extends BaseAdapter {
         if (result.get(position).image.equals(""))
             holder.img.setVisibility(View.GONE); // if Post does not contain Image
         else {
-            new ImageSelectorAsyncTask(holder.img, holder.tv1).execute(result.get(position).image);
+//            new ImageSelectorAsyncTask(holder.img, holder.tv1).execute(result.get(position).image);
+
+            Ion.with(context)
+                    .load(result.get(position).image)
+                    .withBitmap()
+                    .intoImageView(holder.img);
         }
         return rowView;
     }
 
     public TextView getRowTextViewName(String text) {
 
-        TextView rowTextView = new TextView(context);
+       /* TextView rowTextView = new TextView(context);
         rowTextView.setLayoutParams(getLayoutParamsName());
         rowTextView.setText(text);
         rowTextView.setTextSize(15);
-        rowTextView.setBackgroundColor(Color.parseColor("#dfe3ee"));
+        rowTextView.setBackgroundColor(Color.parseColor("#dfe3ee"));*/
+
+        TextView rowTextView = (TextView) ((Activity) context).getLayoutInflater().inflate(R.layout.textview_card, null, false);//new TextView(context);
+//        rowTextView.setLayoutParams(getLayoutParams());
+        rowTextView.setText(text);
+//        rowTextView.setTextSize(15);
+//        rowTextView.setBackgroundResource(R.drawable.card_background);
+        rowTextView.getBackground().setColorFilter(Color.parseColor("#dfe3ee"), PorterDuff.Mode.SRC);
 
         return rowTextView;
     }
 
     public TextView getReplyTextViewName(String text) {
 
+/*
         TextView rowTextView = new TextView(context);
         rowTextView.setLayoutParams(getLayoutParamsName());
         rowTextView.setText(text);
         rowTextView.setTextSize(15);
         rowTextView.setBackgroundColor(Color.parseColor("#aaaaaa"));
+*/
+
+        TextView rowTextView = (TextView) ((Activity) context).getLayoutInflater().inflate(R.layout.textview_card, null, false);//new TextView(context);
+//        rowTextView.setLayoutParams(getLayoutParams());
+        rowTextView.setText(text);
+//        rowTextView.setTextSize(15);
+//        rowTextView.setBackgroundResource(R.drawable.card_background);
+        rowTextView.getBackground().setColorFilter(Color.parseColor("#aaaaaa"), PorterDuff.Mode.SRC);
+//        rowTextView.setBackgroundColor(Color.parseColor("#aaaaaa"));
+
 
         return rowTextView;
     }
@@ -195,7 +231,7 @@ public class Posts_CustomAdapter extends BaseAdapter {
 
     public TextView getRowTextView(String text) {
 
-        TextView rowTextView = (TextView) ((Activity)context).getLayoutInflater().inflate(R.layout.textview_card,null,false);//new TextView(context);
+        TextView rowTextView = (TextView) ((Activity) context).getLayoutInflater().inflate(R.layout.textview_card, null, false);//new TextView(context);
 //        rowTextView.setLayoutParams(getLayoutParams());
         rowTextView.setText(text);
 //        rowTextView.setTextSize(15);
@@ -208,7 +244,7 @@ public class Posts_CustomAdapter extends BaseAdapter {
 
     public TextView getReplyTextView(String text) {
 
-        TextView rowTextView = (TextView) ((Activity)context).getLayoutInflater().inflate(R.layout.textview_card,null,false);//new TextView(context);
+        TextView rowTextView = (TextView) ((Activity) context).getLayoutInflater().inflate(R.layout.textview_card, null, false);//new TextView(context);
 //        rowTextView.setLayoutParams(getLayoutParams());
         rowTextView.setText(text);
 //        rowTextView.setTextSize(15);

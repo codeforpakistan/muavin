@@ -3,11 +3,16 @@
     android:fillViewport="true"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFF"
+    android:background="@color/light_background"
     >
 
     <ListView android:id="@+id/listView1"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"/>
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/LoadPosts"
+        android:divider="@color/transparent"
+        android:dividerHeight="20dp"
+        android:padding="10dp"
+        android:scrollbars="none" />
 
 </RelativeLayout>

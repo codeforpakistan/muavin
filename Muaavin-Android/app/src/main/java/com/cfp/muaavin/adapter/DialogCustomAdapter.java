@@ -101,7 +101,8 @@ public class DialogCustomAdapter extends BaseAdapter {
             public void onClick(View v)
             {
                 String dataType = "Facebook";
-                String group_name = DialogBox.group[position]; DialogBox.CategoryName = Posts.get(position);
+                String group_name = DialogBox.group[position];
+                DialogBox.CategoryName = Posts.get(position);
                 DataLoaderHelper dataLoader = new DataLoaderHelper(context,uiUpdate,activity);
                 if(isTwitterData) dataType = "Twitter";
                 try {
