@@ -1,9 +1,11 @@
 package com.cfp.muaavin.adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cfp.muaavin.facebook.PostDetail;
 import com.cfp.muaavin.facebook.User;
@@ -87,15 +90,21 @@ public class Browser_CustomAdapter extends BaseAdapter {
         holder.reportButton.setText(Post_Details.get(0).groupName);
         holder.category.setText(getCategory(Post_Details.get(0).groupName));
         if (Post_Details.get(0).IsTwitterPost) {
-            holder.title.setBackgroundColor(Color.parseColor("#00BFFF"));
-            holder.PostHeading.setBackgroundColor(Color.parseColor("#00BFFF"));
+//            holder.title.getBackground().setColorFilter(context.getResources().getColor(R.color.tweetColor), PorterDuff.Mode.SRC);
+            holder.rootLayout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_background_tweet));
+            holder.PostHeading.getBackground().setColorFilter(context.getResources().getColor(R.color.tweetColor), PorterDuff.Mode.SRC_IN);//setBackgroundColor(Color.parseColor("#00BFFF"));
             holder.PostHeading.setText("Tweet : " + Post_Details.get(0).infringing_user_name);
-            holder.FeedBack.setBackgroundColor(Color.parseColor("#87CEFA"));
-
+            holder.FeedBack.getBackground().setColorFilter(context.getResources().getColor(R.color.tweetColor), PorterDuff.Mode.SRC_IN);//setBackgroundColor(Color.parseColor("#87CEFA"));
+            holder.submit.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_left_top_round_selector_tweet));
+            holder.ThumbDownButtonLayout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_right_top_round_selector_tweet));
         } else if (Post_Details.get(0).IsComment) {
             holder.PostHeading.setText("Comment : " + Post_Details.get(0).infringing_user_name);
+            holder.rootLayout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_background_2));
         } else {
             holder.PostHeading.setText("Post : " + Post_Details.get(0).infringing_user_name);
+            holder.rootLayout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.card_background_2));
+            holder.submit.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_left_top_round_selector));
+            holder.ThumbDownButtonLayout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_right_top_round_selector));
         }
         new ImageSelectorAsyncTask(holder.ProfilePic, holder.connectionText).execute(infringingUserPic);
 
@@ -107,6 +116,12 @@ public class Browser_CustomAdapter extends BaseAdapter {
 
         int i = 0;
 
+        if (Post_Details.get(0).FeedBacks.size() > 0) {
+            holder.FeedBack.setVisibility(View.VISIBLE);
+        } else {
+            holder.FeedBack.setVisibility(View.GONE);
+        }
+
         for (int j = 0; j < Post_Details.get(0).FeedBacks.size(); j++) {
 /*
                 final RelativeLayout relative_layout = new RelativeLayout(context);
@@ -117,14 +132,24 @@ public class Browser_CustomAdapter extends BaseAdapter {
                 relative_layout.addView(TextViewFeedBack);
                 relative_layout.addView(PersonImage);
 */
-            final LinearLayout relative_layout = new LinearLayout(context);
+
+// update this feedback item
+
+            final View feedbackItem = ((Activity) context).getLayoutInflater().inflate(R.layout.feedback_item, null, false);
+            ((ImageView) feedbackItem.findViewById(R.id.image)).setImageResource(R.drawable.single_person_icon);
+            ((TextView) feedbackItem.findViewById(R.id.text)).setText(Post_Details.get(0).FeedBacks.get(j));
+            holder.linearLayout3.addView(feedbackItem);
+
+
+
+            /*final LinearLayout relative_layout = new LinearLayout(context);
             relative_layout.setOrientation(LinearLayout.HORIZONTAL);
             ImageView PersonImage = getImageView();
             PersonImage.setImageResource(R.drawable.single_person_icon);
             final TextView TextViewFeedBack = getRowTextViewFeedback(Post_Details.get(0).FeedBacks.get(j), i);
             holder.linearLayout3.addView(relative_layout);
             relative_layout.addView(PersonImage);
-            relative_layout.addView(TextViewFeedBack);
+            relative_layout.addView(TextViewFeedBack);*/
         }
 
 
@@ -142,6 +167,11 @@ public class Browser_CustomAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String comment = holder.edit_text.getText().toString();
+                if(TextUtils.isEmpty(comment))
+                {
+                    Toast.makeText(context, context.getString(R.string.field_empty), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String serverURL = null;
 
                 try {
@@ -220,7 +250,7 @@ public class Browser_CustomAdapter extends BaseAdapter {
         if ((float) result.get(keys.get(position)).get(0).unlike_value > (float) (result.get(keys.get(position)).get(0).count / 10))
             holder.PostHeading.setTextColor(context.getResources().getColor(R.color.pink));
 
-        holder.ThumbDownButton.setOnClickListener(new View.OnClickListener() {
+        holder.ThumbDownButtonLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -252,6 +282,7 @@ public class Browser_CustomAdapter extends BaseAdapter {
         holder.connectionText = (TextView) rowView.findViewById(R.id.Textbox2);
         holder.total_unlikes = (TextView) rowView.findViewById(R.id.total_unlikes);
         holder.ThumbDownButton = (ImageButton) rowView.findViewById(R.id.image_button);
+        holder.ThumbDownButtonLayout = (LinearLayout) rowView.findViewById(R.id.ll2);
         holder.reportButton = (Button) rowView.findViewById(R.id.report);
         holder.PostHeading = (TextView) rowView.findViewById(R.id.Textbox2);
         holder.CommentHeading = (TextView) rowView.findViewById(R.id.Textbox3);
@@ -260,6 +291,8 @@ public class Browser_CustomAdapter extends BaseAdapter {
         holder.FeedBack = (TextView) rowView.findViewById(R.id.FeedBack);
         holder.title = (RelativeLayout) rowView.findViewById(R.id.title);
         holder.category = (TextView) rowView.findViewById(R.id.category);
+        holder.rootLayout= (LinearLayout) rowView.findViewById(R.id.rootLayout);
+
         return holder;
     }
 
@@ -386,6 +419,8 @@ public class Browser_CustomAdapter extends BaseAdapter {
         TextView total_unlikes;
 
         ImageButton ThumbDownButton;
+        View ThumbDownButtonLayout;
+        LinearLayout rootLayout;
         Button reportButton;
 
         TextView PostHeading;

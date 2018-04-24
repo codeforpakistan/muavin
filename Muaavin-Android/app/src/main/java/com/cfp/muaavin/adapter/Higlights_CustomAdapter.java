@@ -88,10 +88,12 @@ public class Higlights_CustomAdapter extends BaseAdapter {
 
         if(infringing_friends.get(position).profile_url.contains("facebook")){
             holder.userProfile.setVisibility(View.VISIBLE);
+            holder.userProfile.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.view_profile_selector));
         }
-        else
+        else {
             holder.userProfile.setVisibility(View.GONE);
-
+            holder.userProfile.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.view_profile_selector_tweeter));
+        }
         holder.userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

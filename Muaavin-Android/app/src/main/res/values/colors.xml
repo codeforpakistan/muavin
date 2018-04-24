@@ -29,5 +29,6 @@
     <color name="pink">#CD1F5C</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="tweetColor">#00BFFF</color>
+    <color name="highlighted_color">#dfe3ee</color>
 
 </resources>

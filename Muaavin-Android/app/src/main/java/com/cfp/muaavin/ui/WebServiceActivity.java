@@ -3,6 +3,8 @@ package com.cfp.muaavin.ui;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.cfp.muaavin.facebook.AsyncResponsePosts;
@@ -45,6 +48,8 @@ public class WebServiceActivity extends Fragment implements UserInterface , Asyn
     String DataType; View view;
     EditText etSearch;
     Higlights_CustomAdapter c;
+    private LinearLayout etSearchBackground;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -54,6 +59,7 @@ public class WebServiceActivity extends Fragment implements UserInterface , Asyn
         Group_name = CategoryName;
         loadUsers = (Button)view.findViewById(R.id.LoadButton);
         etSearch = (EditText)view.findViewById(R.id.search);
+        etSearchBackground = (LinearLayout)view.findViewById(R.id.search_background);
 
         infringing_friends = (ArrayList<User>) getArguments().getSerializable("InfringingUsers");
         InfringingUserIds =  (ArrayList<String>) getArguments().getSerializable("InfringingUsersIds");
@@ -103,6 +109,21 @@ public class WebServiceActivity extends Fragment implements UserInterface , Asyn
 
         if(infringing_friends.size() == 0) { uiUpdate.setText(" Currently No record found"); }
         else { uiUpdate.setText("Group :" + Group_name); }
+        if(DataType.equals("Facebook"))
+        {
+            uiUpdate.getBackground().setColorFilter(getResources().getColor(R.color.barColor), PorterDuff.Mode.SRC_IN );
+            etSearch.getBackground().setColorFilter(getResources().getColor(R.color.barColor), PorterDuff.Mode.SRC_IN );
+            etSearch.getCompoundDrawables()[0].setColorFilter(getResources().getColor(R.color.barColor), PorterDuff.Mode.SRC_IN );
+            etSearchBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.card_background_2));
+        }
+        else if(DataType.equals("Twitter"))
+        {
+            uiUpdate.getBackground().setColorFilter(getResources().getColor(R.color.tweetColor), PorterDuff.Mode.SRC_IN );
+            etSearch.getBackground().setColorFilter(getResources().getColor(R.color.tweetColor), PorterDuff.Mode.SRC_IN );
+            etSearch.getCompoundDrawables()[0].setColorFilter(getResources().getColor(R.color.tweetColor), PorterDuff.Mode.SRC_IN );
+            etSearchBackground.setBackgroundDrawable(getResources().getDrawable(R.drawable.card_background_tweet));
+        }
+
          c = new Higlights_CustomAdapter(getActivity(), infringing_friends);
         InfringingUserListView.setAdapter(c);
 

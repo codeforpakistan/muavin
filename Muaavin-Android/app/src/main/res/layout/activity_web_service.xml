@@ -1,44 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="#FFF"
-    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_background"
+    android:orientation="vertical">
+
 
     <TextView
-    android:id="@+id/output"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:text="      "
-    android:textColor="#000000"
-    android:textSize="20dp"
-    android:layout_marginBottom="10dp"
-    />
-
-    <ListView android:id="@+id/listView1"
-    android:layout_height="match_parent"
-    android:layout_width="fill_parent"
-    android:layout_below="@+id/search"
-    android:layout_above="@+id/LoadButton"/>
-
-    <Button android:id="@+id/LoadButton"
-    android:layout_height="wrap_content"
-    android:layout_width="fill_parent"
-    android:layout_alignParentBottom="true"
-    android:text="Load more Users"
-    android:onClick="LoadUsers"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Search"
-        android:drawableLeft="@android:drawable/ic_search_category_default"
-        android:ems="10"
-        android:layout_below="@+id/output"
-        android:layout_marginLeft="10dp"
+        android:id="@+id/output"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="10dp"
-        android:id="@+id/search" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/card_header_background"
+        android:backgroundTint="@color/barColor"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="Group :"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp" />
 
+    <LinearLayout
+        android:id="@+id/search_background"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/card_background_2"
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/ic_action_search"
+            android:ems="10"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:hint="Search"
+            android:drawableTint="@color/barColor"
+            android:backgroundTint="@color/barColor"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@color/transparent"
+        android:dividerHeight="5dp"
+        android:padding="10dp"
+        android:scrollbars="none" />
+
+    <Button
+        android:id="@+id/LoadButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="LoadUsers"
+        android:text="Load more Users" />
+</LinearLayout>

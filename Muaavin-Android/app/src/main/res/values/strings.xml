@@ -20,5 +20,6 @@
     <string name="title_activity_feedback">Feedback and Rating</string>
     <string name="title_activity_abount">Best Practices</string>
     <string name="title_activity_disclaimer">Disclaimer</string>
+    <string name="field_empty">Fil the field first</string>
 
 </resources>
