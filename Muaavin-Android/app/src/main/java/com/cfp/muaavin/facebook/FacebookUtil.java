@@ -97,6 +97,7 @@ import java.util.HashMap;
     public static ArrayList<User> getFriends() {
 
         FacebookLoginActivity.friend_list = new ArrayList<User>();
+
         for(int i = 0 ; i < 13; i++)
         {
            User user = new User();
@@ -106,6 +107,7 @@ import java.util.HashMap;
            user.profile_url = "https://www.facebook.com/" + user.id;
            FacebookLoginActivity.friend_list.add(user) ;
         }
+
         return users;
     }
 

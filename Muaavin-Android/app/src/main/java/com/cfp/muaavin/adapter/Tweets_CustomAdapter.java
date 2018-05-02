@@ -32,12 +32,10 @@ public class Tweets_CustomAdapter extends BaseAdapter {
     public static Tweet_ListView BrowseActivityDelegate;
 
     public Tweets_CustomAdapter(Context context, ArrayList<Post> tweets, Tweet_ListView delegate) {
-
         TwitterPost = tweets;
         this.context = context;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         BrowseActivityDelegate = delegate;
-
     }
 
 
@@ -69,7 +67,6 @@ public class Tweets_CustomAdapter extends BaseAdapter {
         Holder holder = new Holder();
         holder.TweetHeading = (TextView) rowView.findViewById(R.id.TweetHeading);
         holder.Tweet = (TextView) rowView.findViewById(R.id.Tweet);
-
         holder.Tweet.setText(TwitterPost.get(position).message);
         holder.TweetHeading.setText("Tweet : "+TwitterPost.get(position).PostOwner.name);
         holder.Tweet.setOnClickListener(new View.OnClickListener() {
@@ -81,9 +78,7 @@ public class Tweets_CustomAdapter extends BaseAdapter {
                 TwitterUtil.ReportTwitterDetail.infringing_user_id = TwitterPost.get(position).PostOwner.id;
                 TwitterUtil.ReportTwitterDetail.infringing_user_name = TwitterPost.get(position).PostOwner.name;
                 TwitterUtil.ReportTwitterDetail.infringing_user_profile_pic = TwitterPost.get(position).PostOwner.profile_pic;
-
                 DialogBox.ShowDialogBOx3(context, "Select Group ", group, 5, "user_signed_inID",null,null, true);
-
             }
         });
 
